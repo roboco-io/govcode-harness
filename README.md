@@ -3,6 +3,8 @@
 **v0.9.0 로컬 참조 구현** — 민원 API의 개인정보 로깅 위험 탐지부터 CI 판정·독립 승인·수정 검증·증적 보관을 연결한다.
 실제 기관 승인·법령 적용 확정·원격 CI 배포·실데이터 파일럿 완료를 뜻하지 않는다.
 
+[온보딩 가이드](https://roboco-io.github.io/govcode-harness-guide/onboarding.html) · [브로슈어](https://roboco-io.github.io/govcode-harness-guide/brochure.html) · [공개·버전 관리 안내](docs/PUBLICATION.md)
+
 ## 바로 실행
 
 현재 작업 폴더의 참조 환경에서 실행한다. 새 출력 경로를 사용한다.
