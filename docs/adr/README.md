@@ -15,3 +15,5 @@
 | [0009](0009-explicit-commit-snapshots.md) | 엄격 HEAD와 명시적 commit 스냅샷 분리 |
 | [0010](0010-reference-authority-and-archives.md) | 참조 권한과 역사적 증적 경계 |
 | [0011](0011-limited-model-repair.md) | 제한된 모델 제안·독립 격리 검증 |
+
+- [0012 공공 프로젝트의 규정 충족 안내와 첫 사례 구분](0012-project-compliance-purpose.md)

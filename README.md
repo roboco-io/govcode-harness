@@ -1,11 +1,16 @@
 # GovCode Harness
 
-**v0.9.0 로컬 참조 구현** — 민원 API의 개인정보 로깅 위험 탐지부터 CI 판정·독립 승인·수정 검증·증적 보관을 연결한다.
+**공공 프로젝트의 법령·규칙·가이드라인을 실행 가능한 요구와 작업으로 연결하는 규정 준수 하네스.**
+적용 요구 파악부터 작업 안내, 자동 검사·수정 지원, 담당자 검토·승인·증적까지 충족 과정을 안내하는 것이 제품의 목적이다.
+
+현재 **v0.9.0 로컬 참조 구현**은 첫 Vertical Slice인 민원 API 개인정보 로깅으로 이 흐름의 공통 기반을 검증했다. 다른 규정 분야의 자동 충족 기능은 후속 설계·구현 범위다.
 실제 기관 승인·법령 적용 확정·원격 CI 배포·실데이터 파일럿 완료를 뜻하지 않는다.
 
 [온보딩 가이드](https://roboco.io/govcode-harness-guide/onboarding.html) · [브로슈어](https://roboco.io/govcode-harness-guide/brochure.html) · [공개·버전 관리 안내](docs/PUBLICATION.md)
 
-## 바로 실행
+[제품 목적](INTENT.md) · [전체 범위와 후속 설계](docs/PRODUCT_DIRECTION.md)
+
+## 첫 사례 바로 실행
 
 현재 작업 폴더의 참조 환경에서 실행한다. 새 출력 경로를 사용한다.
 
@@ -62,4 +67,4 @@ python3 -m govcode_harness demo --output .runtime/first-slice
 
 실제 HTTP·OS 격리가 허용되는 환경에서 전체 인수 시험을 수행한다. 현재 전체 참조 검증 플랫폼은 macOS다.
 원래 스캐폴드 JSON은 정적 예시이며 실제 실행은 지정한 새 폴더에 생성한다.
-원격 저장소나 프로젝트 commit·push·배포는 생성하지 않았다.
+공개 코드와 안내 사이트는 [공개 안내](docs/PUBLICATION.md)를 따른다. 실제 기관 운영 배포와 업무 CI 적용은 별도다.
