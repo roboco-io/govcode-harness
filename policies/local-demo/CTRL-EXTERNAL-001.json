@@ -1,0 +1,9 @@
+{
+  "kind": "control",
+  "id": "CTRL-EXTERNAL-001",
+  "version": "0.1.0",
+  "obligation_ids": [],
+  "objective": "고정한 외부 코드 검사 프로필의 지적과 분석 실패를 별도로 판정한다. 법적 의무나 기관 승인으로 해석하지 않는다.",
+  "owner_role": "로컬 데모 실행자",
+  "coverage": "partial"
+}

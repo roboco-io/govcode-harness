@@ -1,0 +1,9 @@
+{
+  "kind": "control",
+  "id": "CTRL-EGRESS-001",
+  "version": "0.1.0",
+  "obligation_ids": [],
+  "objective": "승인되지 않은 원본 코드·민원정보의 외부 전송을 차단한다.",
+  "owner_role": "보안 담당자",
+  "coverage": "not_implemented"
+}

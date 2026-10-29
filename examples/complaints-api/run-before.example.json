@@ -1,0 +1,14 @@
+{
+  "kind": "run",
+  "tenant_id": "TENANT-EXAMPLE",
+  "project_id": "PROJECT-EXAMPLE",
+  "tree_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+  "bundle_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+  "tool_version": "not-implemented",
+  "tool_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+  "status": "evidence_pending",
+  "started_at": "2026-10-28T00:00:00Z",
+  "id": "RUN-BEFORE-EXAMPLE",
+  "commit_sha": "1111111111111111111111111111111111111111",
+  "parent_run_id": null
+}

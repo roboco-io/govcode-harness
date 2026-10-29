@@ -1,0 +1,14 @@
+{
+  "kind": "obligation",
+  "id": "REG-PUBLIC-0302",
+  "version": "2026-10-28-draft",
+  "source_id": "SRC-PUBLIC-0302",
+  "clause": "제30조의2",
+  "basis_kind": "statutory_obligation",
+  "verification": "verified_clause",
+  "applicability": "conditional",
+  "effective_from": null,
+  "effective_until": null,
+  "temporal_note": "기준일 적용본과 공공시스템 해당 여부 검토 후 시행 구간 고정.",
+  "summary": "공공시스템운영기관 등의 추가 안전조치 검토."
+}

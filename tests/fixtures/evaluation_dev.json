@@ -1,0 +1,426 @@
+{
+  "format": "govcode-evaluation-v1",
+  "split": "dev",
+  "cases": [
+    {
+      "id": "R2-DEV-R-payload_parameter",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(payload, logger):\n    logger.info(payload)\n",
+      "rationale": "Unfiltered payload parameter reaches the message sink."
+    },
+    {
+      "id": "R2-DEV-R-body_alias",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(body, logger):\n    entry = body\n    logger.warning(entry)\n",
+      "rationale": "Body alias retains sensitive content."
+    },
+    {
+      "id": "R2-DEV-R-data_chain",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(data, logger):\n    first = data\n    second = first\n    logger.debug(second)\n",
+      "rationale": "Two aliases do not sanitize data."
+    },
+    {
+      "id": "R2-DEV-R-citizen_container",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(citizen, logger):\n    envelope = {\"record\": citizen}\n    logger.error(envelope)\n",
+      "rationale": "Container retains the citizen record."
+    },
+    {
+      "id": "R2-DEV-R-form_list",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(form, logger):\n    packet = [\"SYNTHETIC\", form]\n    logger.info(packet)\n",
+      "rationale": "List embeds a form."
+    },
+    {
+      "id": "R2-DEV-R-token_tuple",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(token, logger):\n    pair = (\"SYNTHETIC\", token)\n    logger.warning(pair)\n",
+      "rationale": "Tuple embeds a token."
+    },
+    {
+      "id": "R2-DEV-R-phone_fstring",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(phone, logger):\n    logger.info(f\"SYNTHETIC contact={phone}\")\n",
+      "rationale": "Formatting exposes the phone value."
+    },
+    {
+      "id": "R2-DEV-R-payload_percent",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(payload, logger):\n    text = \"SYNTHETIC %s\" % payload\n    logger.debug(text)\n",
+      "rationale": "Percent formatting preserves payload."
+    },
+    {
+      "id": "R2-DEV-R-body_format",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(body, logger):\n    logger.error(\"SYNTHETIC {}\".format(body))\n",
+      "rationale": "Format call preserves body."
+    },
+    {
+      "id": "R2-DEV-R-request_body_property",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(request, logger):\n    content = request.body\n    logger.info(content)\n",
+      "rationale": "Request body property is an untrusted source."
+    },
+    {
+      "id": "R2-DEV-R-request_json_call",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(request, logger):\n    record = request.json()\n    logger.warning(record)\n",
+      "rationale": "Parsed request JSON remains sensitive."
+    },
+    {
+      "id": "R2-DEV-R-request_json_property",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(request, logger):\n    logger.debug(request.json)\n",
+      "rationale": "Request JSON property reaches log."
+    },
+    {
+      "id": "R2-DEV-R-request_form_property",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(request, logger):\n    values = request.form\n    logger.error(values)\n",
+      "rationale": "Form property reaches log."
+    },
+    {
+      "id": "R2-DEV-R-request_data_property",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(request, logger):\n    values = request.data\n    logger.critical(values)\n",
+      "rationale": "Data property reaches log."
+    },
+    {
+      "id": "R2-DEV-R-request_body_method",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(request, logger):\n    content = request.get_body()\n    logger.info(content)\n",
+      "rationale": "Body getter is a source."
+    },
+    {
+      "id": "R2-DEV-R-logging_import",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\nimport logging\ndef handle(payload):\n    logging.info(payload)\n",
+      "rationale": "Recognized stdlib logging receives payload."
+    },
+    {
+      "id": "R2-DEV-R-logging_alias",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\nimport logging as journal\ndef handle(form):\n    journal.warning(form)\n",
+      "rationale": "Module alias remains a log sink."
+    },
+    {
+      "id": "R2-DEV-R-logging_named_import",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\nfrom logging import error\ndef handle(token):\n    error(token)\n",
+      "rationale": "Imported stdlib error sink exposes token."
+    },
+    {
+      "id": "R2-DEV-R-private_return",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef _value(payload):\n    return payload\ndef handle(body, logger):\n    logger.error(_value(body))\n",
+      "rationale": "Closed private helper returns its tainted argument."
+    },
+    {
+      "id": "R2-DEV-R-private_sink",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef _emit(data, logger):\n    logger.info(data)\ndef handle(form, logger):\n    _emit(form, logger)\n",
+      "rationale": "Static private wrapper logs form."
+    },
+    {
+      "id": "R2-DEV-R-except_body",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(body, logger):\n    try:\n        raise ValueError(\"SYNTHETIC\")\n    except ValueError:\n        logger.error(body)\n",
+      "rationale": "Exception handler logs raw body."
+    },
+    {
+      "id": "R2-DEV-R-except_traceback",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(payload, logger):\n    try:\n        raise ValueError(payload)\n    except ValueError:\n        logger.exception(\"SYNTHETIC\")\n",
+      "rationale": "Traceback includes exception constructed with payload."
+    },
+    {
+      "id": "R2-DEV-R-name_laundering",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(body, logger):\n    request_id = body\n    logger.info(request_id)\n",
+      "rationale": "Renaming body to request_id does not establish trusted provenance."
+    },
+    {
+      "id": "R2-DEV-R-conditional_alias",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(payload, status, logger):\n    duplicate = payload\n    if status:\n        duplicate = \"SYNTHETIC\"\n    logger.warning(duplicate)\n",
+      "rationale": "Unchanged branch retains payload."
+    },
+    {
+      "id": "R2-DEV-S-constant_message",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(logger):\n    logger.info(\"SYNTHETIC accepted\")\n",
+      "rationale": "Constant event contains no identifying value."
+    },
+    {
+      "id": "R2-DEV-S-request_id_contract",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(request_id, logger):\n    logger.info(request_id)\n",
+      "rationale": "Contract: request_id is a server-generated opaque correlation ID, with no request-derived content."
+    },
+    {
+      "id": "R2-DEV-S-operation_contract",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(operation, audit):\n    audit.info(operation)\n",
+      "rationale": "Contract: operation is a fixed server operation code."
+    },
+    {
+      "id": "R2-DEV-S-result_code_contract",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(result_code, logger):\n    logger.warning(result_code)\n",
+      "rationale": "Contract: result_code is an allowlisted server result code."
+    },
+    {
+      "id": "R2-DEV-S-status_contract",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(status, logger):\n    logger.debug(status)\n",
+      "rationale": "Contract: status is an allowlisted server state."
+    },
+    {
+      "id": "R2-DEV-S-metadata_dictionary",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(request_id, operation, logger):\n    logger.info({\"request_id\": request_id, \"operation\": operation})\n",
+      "rationale": "Only contract-trusted opaque ID and fixed operation are logged."
+    },
+    {
+      "id": "R2-DEV-S-metadata_extra",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(request_id, result_code, audit):\n    audit.info(\"SYNTHETIC\", extra={\"request_id\": request_id, \"result_code\": result_code})\n",
+      "rationale": "Required audit event retains only contract metadata."
+    },
+    {
+      "id": "R2-DEV-S-metadata_alias",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(request_id, logger):\n    correlation = request_id\n    logger.info(correlation)\n",
+      "rationale": "Alias preserves contract-trusted opaque ID."
+    },
+    {
+      "id": "R2-DEV-S-constant_list",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(logger):\n    values = [\"SYNTHETIC\", \"SYNTHETIC_OK\"]\n    logger.info(values)\n",
+      "rationale": "List contains only constants."
+    },
+    {
+      "id": "R2-DEV-S-constant_tuple",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(logger):\n    values = (\"SYNTHETIC\", 0)\n    logger.debug(values)\n",
+      "rationale": "Tuple contains only constants."
+    },
+    {
+      "id": "R2-DEV-S-metadata_fstring",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(request_id, logger):\n    logger.info(f\"SYNTHETIC {request_id}\")\n",
+      "rationale": "Formatting contains only contract-trusted opaque ID."
+    },
+    {
+      "id": "R2-DEV-S-metadata_percent",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(operation, logger):\n    text = \"SYNTHETIC %s\" % operation\n    logger.info(text)\n",
+      "rationale": "Formatting contains only fixed operation code."
+    },
+    {
+      "id": "R2-DEV-S-metadata_format",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(result_code, logger):\n    logger.warning(\"SYNTHETIC {}\".format(result_code))\n",
+      "rationale": "Formatting contains only fixed result code."
+    },
+    {
+      "id": "R2-DEV-S-deferred_metadata",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(status, logger):\n    logger.info(\"SYNTHETIC %s\", status)\n",
+      "rationale": "Deferred argument is contract-trusted state."
+    },
+    {
+      "id": "R2-DEV-S-unused_payload",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(payload, request_id, audit):\n    audit.info(\"SYNTHETIC accepted\", extra={\"request_id\": request_id})\n    return payload\n",
+      "rationale": "Business return preserves payload; audit logs only contract ID."
+    },
+    {
+      "id": "R2-DEV-S-unused_request_body",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(request, logger):\n    body = request.body\n    logger.info(\"SYNTHETIC received\")\n    return body\n",
+      "rationale": "Body is returned to business flow but never logged."
+    },
+    {
+      "id": "R2-DEV-S-overwrite_alias",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(body, logger):\n    value = body\n    value = \"SYNTHETIC\"\n    logger.info(value)\n",
+      "rationale": "Definite reassignment removes the source before sink."
+    },
+    {
+      "id": "R2-DEV-S-branch_constants",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(status, logger):\n    if status:\n        value = \"SYNTHETIC_OK\"\n    else:\n        value = \"SYNTHETIC_OTHER\"\n    logger.info(value)\n",
+      "rationale": "Both branches log fixed event codes."
+    },
+    {
+      "id": "R2-DEV-S-private_metadata_return",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef _identity(request_id):\n    return request_id\ndef handle(request_id, logger):\n    logger.info(_identity(request_id))\n",
+      "rationale": "Private helper is closed to shown static caller; ID comes from declared server contract."
+    },
+    {
+      "id": "R2-DEV-S-private_constant_redaction",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef _redact(payload):\n    return \"SYNTHETIC_REDACTED\"\ndef handle(body, logger):\n    logger.info(_redact(body))\n",
+      "rationale": "Closed private helper returns a constant and never logs its input."
+    },
+    {
+      "id": "R2-DEV-S-private_two_calls",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef _event(operation, logger):\n    logger.info(operation)\ndef handle(logger):\n    _event(\"SYNTHETIC_START\", logger)\n    _event(\"SYNTHETIC_END\", logger)\n",
+      "rationale": "All static private-helper callers pass constants; no dynamic exports assumed."
+    },
+    {
+      "id": "R2-DEV-S-private_chain_safe",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef _a(status):\n    return status\ndef _b(status):\n    return _a(status)\ndef handle(status, logger):\n    logger.info(_b(status))\n",
+      "rationale": "Closed helper chain preserves contract-trusted state."
+    },
+    {
+      "id": "R2-DEV-S-safe_subscript",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(operation, logger):\n    record = {\"operation\": operation}\n    logger.info(record[\"operation\"])\n",
+      "rationale": "Selected value is contract fixed operation."
+    },
+    {
+      "id": "R2-DEV-S-branch_clears_source",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(data, status, logger):\n    value = data\n    if status:\n        value = \"SYNTHETIC_A\"\n    else:\n        value = \"SYNTHETIC_B\"\n    logger.info(value)\n",
+      "rationale": "Both branches definitely overwrite sensitive value."
+    },
+    {
+      "id": "R2-DEV-R-decorated_endpoint",
+      "expected_risk": true,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\n@framework.route(\"SYNTHETIC\")\ndef handle(payload, logger):\n    logger.info(payload)\n",
+      "rationale": "External decorator semantics are unsupported; raw payload log is risky."
+    },
+    {
+      "id": "R2-DEV-R-dynamic_sink",
+      "expected_risk": true,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(body, logger, operation):\n    emit = getattr(logger, operation)\n    emit(body)\n",
+      "rationale": "Dynamic sink lookup requires review; body exposure remains a risk."
+    },
+    {
+      "id": "R2-DEV-R-class_handler",
+      "expected_risk": true,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\nclass Handler:\n    def handle(self, citizen, logger):\n        logger.info(citizen)\n",
+      "rationale": "Class method analysis is outside target; raw citizen log is risky."
+    },
+    {
+      "id": "R2-DEV-R-loop_sink",
+      "expected_risk": true,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(form, logger):\n    for value in form:\n        logger.info(value)\n",
+      "rationale": "Loop flow is outside target; form items can expose identifying content."
+    },
+    {
+      "id": "R2-DEV-R-unknown_transform",
+      "expected_risk": true,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(token, logger):\n    logger.info(external_transform(token))\n",
+      "rationale": "Unknown transform is contractually identity-like, not an approved sanitizer; token remains risky."
+    },
+    {
+      "id": "R2-DEV-R-dynamic_callback",
+      "expected_risk": true,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(phone, logger):\n    callback = lambda value: logger.info(value)\n    callback(phone)\n",
+      "rationale": "Lambda callback flow is unsupported; phone reaches sink."
+    },
+    {
+      "id": "R2-DEV-S-decorated_constant",
+      "expected_risk": false,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\n@framework.route(\"SYNTHETIC\")\ndef handle(logger):\n    logger.info(\"SYNTHETIC\")\n",
+      "rationale": "Decorator requires review; declared decorator only registers function and log is constant."
+    },
+    {
+      "id": "R2-DEV-S-dynamic_constant_sink",
+      "expected_risk": false,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(logger, operation):\n    emit = getattr(logger, operation)\n    emit(\"SYNTHETIC\")\n",
+      "rationale": "Dynamic log method requires review; emitted value is a constant."
+    },
+    {
+      "id": "R2-DEV-S-class_constant",
+      "expected_risk": false,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\nclass Handler:\n    def handle(self, logger):\n        logger.info(\"SYNTHETIC\")\n",
+      "rationale": "Class analysis requires review; only fixed event is logged."
+    },
+    {
+      "id": "R2-DEV-S-loop_constant",
+      "expected_risk": false,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(logger):\n    for value in (\"SYNTHETIC_A\", \"SYNTHETIC_B\"):\n        logger.info(value)\n",
+      "rationale": "Loop requires review; iterable contains only constants."
+    },
+    {
+      "id": "R2-DEV-S-unknown_constant_transform",
+      "expected_risk": false,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(logger):\n    logger.info(external_transform(\"SYNTHETIC\"))\n",
+      "rationale": "External transform requires review; contract is pure identity over the fixed marker."
+    },
+    {
+      "id": "R2-DEV-S-lambda_constant",
+      "expected_risk": false,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(logger):\n    callback = lambda value: logger.info(value)\n    callback(\"SYNTHETIC\")\n",
+      "rationale": "Lambda flow requires review; only static constant is passed."
+    }
+  ]
+}

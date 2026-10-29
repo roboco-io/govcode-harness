@@ -1,0 +1,14 @@
+{
+  "kind": "obligation",
+  "id": "REG-PIPA-029",
+  "version": "2026-10-28-draft",
+  "source_id": "SRC-PIPA-029",
+  "clause": "제29조",
+  "basis_kind": "statutory_obligation",
+  "verification": "verified_clause",
+  "applicability": "conditional",
+  "effective_from": "2026-09-11",
+  "effective_until": null,
+  "temporal_note": "표제 시행일과 해당 조문정보 확인. 기관별 사실관계 확인 필요.",
+  "summary": "개인정보처리자의 안전성 확보 조치."
+}

@@ -1,0 +1,32 @@
+# EXAMPLE ONLY: use protected administrator-owned pipeline configuration.
+# Do not load pipeline/scripts/dependencies from an untrusted merge request.
+# The runner must have the reviewed harness installed at the paths below.
+# Use isolated unprivileged runners with no secrets on fork merge requests.
+# GitLab Runner checks out CI_COMMIT_SHA; gate compares actual HEAD again.
+variables:
+  GIT_STRATEGY: clone
+  GIT_CHECKOUT: 'true'
+  GIT_SUBMODULE_STRATEGY: none
+reference-gate:
+  stage: test
+  script:
+    - export GOVCODE_PYTHON=/opt/govcode/bin/python3
+    - export GOVCODE_REPO="$CI_PROJECT_DIR"
+    - export GOVCODE_EXPECTED_COMMIT="$CI_COMMIT_SHA"
+    # External location is required; artifact collection is a separate trusted step.
+    - export GOVCODE_ARTIFACTS="/tmp/govcode-${CI_JOB_ID}"
+    - export GOVCODE_WITH_IRON_LAWS=0
+    - /opt/govcode/ci/reference-gate.sh
+  after_script:
+    # GitLab collects artifacts from the project tree. Copy only sanitized proof
+    # after the gate finishes; never include scanned source or run repository code.
+    # Remove the reserved staging name first: checkout must not supply artifacts
+    # or a staging symlink. This runs only after scanning, with no source execution.
+    - rm -rf -- "$CI_PROJECT_DIR/.govcode-redacted-proof"
+    - mkdir "$CI_PROJECT_DIR/.govcode-redacted-proof"
+    - cp -R "/tmp/govcode-${CI_JOB_ID}/." "$CI_PROJECT_DIR/.govcode-redacted-proof/"
+  artifacts:
+    when: always
+    paths:
+      - .govcode-redacted-proof/
+  allow_failure: false

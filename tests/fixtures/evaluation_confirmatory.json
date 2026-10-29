@@ -1,0 +1,286 @@
+{
+  "format": "govcode-evaluation-v1",
+  "split": "holdout",
+  "cases": [
+    {
+      "id": "R2-CONFIRMATORY-R-request_json_nested",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef submit(request, logger):\n    record = {\"SYNTHETIC_entry\": request.json()}\n    logger.warning(\"SYNTHETIC received %s\", record)\n",
+      "rationale": "Request JSON remains sensitive when nested and passed as a deferred log argument."
+    },
+    {
+      "id": "R2-CONFIRMATORY-R-request_body_extra_alias",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef submit(request, audit):\n    content = request.body\n    fields = {\"SYNTHETIC_content\": content}\n    audit.info(\"SYNTHETIC received\", extra=fields)\n",
+      "rationale": "Audit extra contains request body through an alias and dictionary."
+    },
+    {
+      "id": "R2-CONFIRMATORY-R-form_selected",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef submit(form, logger):\n    values = [form, \"SYNTHETIC\"]\n    selected = values[0]\n    logger.error(selected)\n",
+      "rationale": "Selecting a list element preserves the form source."
+    },
+    {
+      "id": "R2-CONFIRMATORY-R-citizen_formatted_tuple",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef submit(citizen, logger):\n    description = (citizen, \"SYNTHETIC\")\n    logger.debug(f\"SYNTHETIC record {description}\")\n",
+      "rationale": "F-string representation of a tuple exposes the citizen record."
+    },
+    {
+      "id": "R2-CONFIRMATORY-R-phone_module_alias",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\nimport logging as events\ndef submit(phone):\n    message = \"SYNTHETIC phone {}\".format(phone)\n    events.critical(message)\n",
+      "rationale": "Aliased standard logging receives formatted phone data."
+    },
+    {
+      "id": "R2-CONFIRMATORY-R-token_import_alias",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\nfrom logging import warning as emit_warning\ndef submit(token):\n    duplicate = token\n    emit_warning(\"SYNTHETIC token=%s\", duplicate)\n",
+      "rationale": "Imported logging alias receives the token as a formatting argument."
+    },
+    {
+      "id": "R2-CONFIRMATORY-R-factory_body_chain",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\nimport logging\nevents = logging.getLogger(\"SYNTHETIC_EVENTS\")\ndef submit(body):\n    destination = events\n    entry = body\n    destination.error({\"SYNTHETIC_entry\": entry})\n",
+      "rationale": "Factory logger alias emits body embedded in a container."
+    },
+    {
+      "id": "R2-CONFIRMATORY-R-branch_request_source",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef submit(request, status, logger):\n    if status:\n        value = request.get_body()\n    else:\n        value = \"SYNTHETIC_EMPTY\"\n    logger.info(\"SYNTHETIC value %s\", value)\n",
+      "rationale": "One branch obtains raw request body; merging cannot erase that risk."
+    },
+    {
+      "id": "R2-CONFIRMATORY-R-branch_same_alias",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef submit(data, status, logger):\n    value = data\n    if status:\n        entry = value\n    else:\n        entry = {\"SYNTHETIC_record\": value}\n    logger.warning(entry)\n",
+      "rationale": "Both branch outcomes retain sensitive data in different shapes."
+    },
+    {
+      "id": "R2-CONFIRMATORY-R-private_keyword_wrap",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef _record(payload):\n    entry = {\"SYNTHETIC_value\": payload}\n    return entry\ndef submit(form, audit):\n    audit.info(\"SYNTHETIC\", extra=_record(payload=form))\n",
+      "rationale": "Closed static helper called by keyword wraps form in audit extra."
+    },
+    {
+      "id": "R2-CONFIRMATORY-R-private_reordered_arguments",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef _write(logger, phone):\n    logger.warning(\"SYNTHETIC contact %s\", phone)\ndef submit(token, logger):\n    _write(logger, token)\n",
+      "rationale": "Static helper maps the sensitive caller token to its second argument and logs it."
+    },
+    {
+      "id": "R2-CONFIRMATORY-R-private_source_return",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef _extract(request):\n    return request.data\ndef submit(request, logger):\n    message = _extract(request)\n    logger.error(message)\n",
+      "rationale": "Closed helper returns raw request data to a log sink."
+    },
+    {
+      "id": "R2-CONFIRMATORY-R-exception_chained_alias",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef submit(data, logger):\n    entry = data\n    try:\n        raise ValueError(entry)\n    except ValueError as failure:\n        detail = failure\n        logger.error(\"SYNTHETIC failure %s\", detail)\n",
+      "rationale": "Exception argument and alias expose source content through deferred formatting."
+    },
+    {
+      "id": "R2-CONFIRMATORY-R-exception_module_traceback",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\nimport logging\ndef submit(phone):\n    try:\n        raise RuntimeError(\"SYNTHETIC {}\".format(phone))\n    except RuntimeError:\n        logging.exception(\"SYNTHETIC failed\")\n",
+      "rationale": "Standard logging traceback prints an exception message containing phone data."
+    },
+    {
+      "id": "R2-CONFIRMATORY-R-except_body_container",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef submit(request, audit):\n    try:\n        raise ValueError(\"SYNTHETIC\")\n    except ValueError:\n        entry = {\"SYNTHETIC_body\": request.body}\n        audit.error(entry)\n",
+      "rationale": "Handler logs body obtained within the exception path."
+    },
+    {
+      "id": "R2-CONFIRMATORY-R-request_id_contamination",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef submit(payload, logger):\n    request_id = \"SYNTHETIC {}\".format(payload)\n    fields = {\"request_id\": request_id}\n    logger.info(fields)\n",
+      "rationale": "A metadata-shaped key does not sanitize request-derived content."
+    },
+    {
+      "id": "R2-CONFIRMATORY-S-metadata_nested_tuple",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef submit(request_id, operation, audit):\n    event = {\"SYNTHETIC_event\": (operation, request_id)}\n    audit.info(event)\n",
+      "rationale": "Contract: operation is fixed server metadata and request_id is a server-generated opaque ID."
+    },
+    {
+      "id": "R2-CONFIRMATORY-S-source_separate_return",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef submit(request, result_code, audit):\n    incoming = request.json()\n    fields = {\"result_code\": result_code}\n    audit.info(\"SYNTHETIC received\", extra=fields)\n    return incoming\n",
+      "rationale": "Raw JSON remains in business return; audit contains only contract-trusted server result code."
+    },
+    {
+      "id": "R2-CONFIRMATORY-S-metadata_selected_list",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef submit(status, operation, logger):\n    fields = [status, operation]\n    logger.debug(fields[1])\n",
+      "rationale": "Both inputs are contract-trusted allowlisted server metadata; selected operation is safe."
+    },
+    {
+      "id": "R2-CONFIRMATORY-S-metadata_deferred_dictionary",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef submit(request_id, result_code, logger):\n    event = {\"request_id\": request_id, \"result_code\": result_code}\n    logger.info(\"SYNTHETIC %s\", event)\n",
+      "rationale": "Deferred formatting contains only opaque server ID and fixed server result code."
+    },
+    {
+      "id": "R2-CONFIRMATORY-S-logging_import_alias_metadata",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\nfrom logging import error as event_error\ndef submit(result_code):\n    event_error(\"SYNTHETIC failure %s\", result_code)\n",
+      "rationale": "Imported standard sink receives only contract-trusted server result code."
+    },
+    {
+      "id": "R2-CONFIRMATORY-S-factory_formatted_metadata",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\nimport logging as events\njournal = events.getLogger(\"SYNTHETIC_AUDIT\")\ndef submit(operation):\n    message = f\"SYNTHETIC {operation}\"\n    journal.info(message)\n",
+      "rationale": "Factory log contains only a fixed server operation under the declared contract."
+    },
+    {
+      "id": "R2-CONFIRMATORY-S-branch_metadata_container",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef submit(status, operation, request_id, logger):\n    if status:\n        event = {\"operation\": operation}\n    else:\n        event = {\"request_id\": request_id}\n    logger.info(event)\n",
+      "rationale": "Both branch dictionaries contain only declared trusted server metadata."
+    },
+    {
+      "id": "R2-CONFIRMATORY-S-branch_definite_replacement",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef submit(phone, status, logger):\n    entry = {\"SYNTHETIC_phone\": phone}\n    if status:\n        entry = (\"SYNTHETIC_ACCEPTED\",)\n    else:\n        entry = (\"SYNTHETIC_REJECTED\",)\n    logger.warning(entry)\n",
+      "rationale": "Both branches definitely replace the sensitive container with a constant event."
+    },
+    {
+      "id": "R2-CONFIRMATORY-S-private_keyword_metadata",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef _record(operation, result_code):\n    return {\"operation\": operation, \"result_code\": result_code}\ndef submit(operation, result_code, audit):\n    audit.info(_record(result_code=result_code, operation=operation))\n",
+      "rationale": "Closed static helper receives only contract-trusted metadata, with keyword argument mapping."
+    },
+    {
+      "id": "R2-CONFIRMATORY-S-private_ignores_sensitive",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef _summary(payload, status):\n    return {\"status\": status}\ndef submit(citizen, status, logger):\n    logger.info(_summary(citizen, status))\n    return citizen\n",
+      "rationale": "Closed helper omits its sensitive input and returns only contract-trusted status; business return is retained."
+    },
+    {
+      "id": "R2-CONFIRMATORY-S-private_logger_first",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef _write(audit, operation, request_id):\n    audit.info(\"SYNTHETIC\", extra={\"operation\": operation, \"request_id\": request_id})\ndef submit(operation, request_id, audit):\n    _write(audit, operation, request_id)\n",
+      "rationale": "Closed wrapper receives fixed operation and opaque server ID; mandatory event metadata is retained."
+    },
+    {
+      "id": "R2-CONFIRMATORY-S-private_constant_chain",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef _replacement(body):\n    return \"SYNTHETIC_REDACTED\"\ndef _event(payload):\n    return {\"SYNTHETIC_event\": _replacement(payload)}\ndef submit(token, logger):\n    logger.info(_event(token))\n",
+      "rationale": "Closed static helper chain replaces the sensitive input with a constant before logging."
+    },
+    {
+      "id": "R2-CONFIRMATORY-S-caught_raw_exception_fixed_event",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef submit(citizen, result_code, audit):\n    try:\n        raise ValueError(citizen)\n    except ValueError as failure:\n        audit.info(\"SYNTHETIC rejected\", extra={\"result_code\": result_code})\n",
+      "rationale": "Caught exception is not emitted; audit logs only a fixed event and contract-trusted server result code without traceback."
+    },
+    {
+      "id": "R2-CONFIRMATORY-S-caught_raw_exception_explicit_false",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef submit(token, request_id, logger):\n    try:\n        raise RuntimeError(token)\n    except RuntimeError:\n        logger.warning(\"SYNTHETIC rejected %s\", request_id, exc_info=False)\n",
+      "rationale": "Raw exception remains unlogged; explicit false disables traceback and argument is an opaque server ID."
+    },
+    {
+      "id": "R2-CONFIRMATORY-S-except_then_safe_event",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef submit(body, operation, logger):\n    result = \"SYNTHETIC_READY\"\n    try:\n        raise ValueError(body)\n    except ValueError:\n        result = \"SYNTHETIC_REJECTED\"\n    logger.info(\"SYNTHETIC %s %s\", operation, result)\n",
+      "rationale": "Exception content never reaches sink; merged result is constant and operation follows server metadata contract."
+    },
+    {
+      "id": "R2-CONFIRMATORY-S-except_fixed_private_audit",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef _failed(audit, status):\n    audit.info(\"SYNTHETIC failed\", extra={\"status\": status})\ndef submit(form, status, audit):\n    try:\n        raise ValueError(form)\n    except ValueError:\n        _failed(audit, status)\n",
+      "rationale": "Closed static helper logs only fixed failure and contract-trusted status; no exception argument or traceback is emitted."
+    },
+    {
+      "id": "R2-CONFIRMATORY-R-dynamic_private_dispatch",
+      "expected_risk": true,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef _emit(payload, logger):\n    logger.info(\"SYNTHETIC %s\", payload)\ndef submit(form, logger):\n    dispatch = {\"SYNTHETIC\": _emit}\n    dispatch[\"SYNTHETIC\"](form, logger)\n",
+      "rationale": "Dynamic function dispatch invalidates the closed static helper contract; form is emitted."
+    },
+    {
+      "id": "R2-CONFIRMATORY-R-loop_request_items",
+      "expected_risk": true,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef submit(request, audit):\n    items = request.json()\n    for citizen in items:\n        audit.warning({\"SYNTHETIC_item\": citizen})\n",
+      "rationale": "Unsupported loop emits request JSON elements; synthetic contract declares them sensitive records."
+    },
+    {
+      "id": "R2-CONFIRMATORY-R-class_stored_token",
+      "expected_risk": true,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\nclass SyntheticHandler:\n    def __init__(self, token):\n        self.token = token\n    def emit(self, logger):\n        logger.error(\"SYNTHETIC %s\", self.token)\n",
+      "rationale": "Class and instance state require review; declared token is sensitive and reaches log."
+    },
+    {
+      "id": "R2-CONFIRMATORY-R-decorated_body_transform",
+      "expected_risk": true,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\n@synthetic_framework.register\ndef submit(request, logger):\n    logger.info(external_copy(request.get_body()))\n",
+      "rationale": "External decorator and unknown transform require review; declared copy preserves raw body."
+    },
+    {
+      "id": "R2-CONFIRMATORY-S-dynamic_private_constant",
+      "expected_risk": false,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef _emit(operation, logger):\n    logger.info(\"SYNTHETIC %s\", operation)\ndef submit(logger):\n    dispatch = {\"SYNTHETIC\": _emit}\n    dispatch[\"SYNTHETIC\"](\"SYNTHETIC_COMPLETE\", logger)\n",
+      "rationale": "Dynamic dispatch requires review; the only value passed to the logger is a fixed marker."
+    },
+    {
+      "id": "R2-CONFIRMATORY-S-loop_fixed_metadata",
+      "expected_risk": false,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\ndef submit(request_id, operation, audit):\n    for event in ((\"request_id\", request_id), (\"operation\", operation)):\n        audit.info(event)\n",
+      "rationale": "Loop requires review; declared server opaque ID and fixed operation contain no identifying request content."
+    },
+    {
+      "id": "R2-CONFIRMATORY-S-class_fixed_event",
+      "expected_risk": false,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\nclass SyntheticHandler:\n    def __init__(self):\n        self.event = \"SYNTHETIC_COMPLETE\"\n    def emit(self, logger):\n        logger.info(self.event)\n",
+      "rationale": "Instance state requires review; source visibly stores only a fixed event marker."
+    },
+    {
+      "id": "R2-CONFIRMATORY-S-decorated_constant_transform",
+      "expected_risk": false,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC confirmatory fixture; do not execute.\n@synthetic_framework.register\ndef submit(logger):\n    logger.info(external_copy(\"SYNTHETIC_COMPLETE\"))\n",
+      "rationale": "External decorator and transform require review; declared registration has no logging side effect and pure copy receives a constant."
+    }
+  ]
+}

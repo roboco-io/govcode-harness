@@ -1,0 +1,13 @@
+{
+  "name": "iron-laws",
+  "version": "1.11.2",
+  "source_commit": "2a820e8cd7ade4c3060381198ed13bf3e6b43146",
+  "archive_url": "https://codeload.github.com/JinHo-von-Choi/iron-laws/tar.gz/2a820e8cd7ade4c3060381198ed13bf3e6b43146",
+  "archive_sha256": "b84ca4afc1350109113e8f1df552d7c010903095b83ac0ca4bbb26c89f7d7751",
+  "python_requires": ">=3.12",
+  "license": "MIT",
+  "profile": "AI-112-v2-python-poc",
+  "rule_ids": ["AI-112"],
+  "report_schema": "1.8",
+  "profile_reason": "Frozen auxiliary Python logging pattern check; excludes unrelated rules before any result comparison. Does not replace the built-in complaint flow detector."
+}

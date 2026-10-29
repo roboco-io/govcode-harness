@@ -1,0 +1,28 @@
+{
+  "kind": "policy_bundle",
+  "id": "BUNDLE-EXAMPLE",
+  "version": "0.1.0",
+  "tenant_id": "TENANT-EXAMPLE",
+  "project_id": "PROJECT-EXAMPLE",
+  "policy_refs": [
+    {
+      "id": "POL-EX-LOG-001",
+      "version": "0.1.0"
+    }
+  ],
+  "control_refs": [
+    {
+      "id": "CTRL-LOG-001",
+      "version": "0.1.0"
+    }
+  ],
+  "obligation_refs": [
+    {
+      "id": "REG-PIPA-029",
+      "version": "2026-10-28-draft"
+    }
+  ],
+  "expires_at": "2026-10-29T00:00:00Z",
+  "digest": "0000000000000000000000000000000000000000000000000000000000000000",
+  "signature_status": "not_signed"
+}

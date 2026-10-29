@@ -1,0 +1,19 @@
+{
+  "kind": "decision",
+  "id": "DECISION-BEFORE-EXAMPLE",
+  "run_id": "RUN-BEFORE-EXAMPLE",
+  "outcome": "deny",
+  "reason_codes": [
+    "PII_LOGGING_RISK"
+  ],
+  "policy_refs": [
+    {
+      "id": "POL-EX-LOG-001",
+      "version": "0.1.0"
+    }
+  ],
+  "finding_ids": [
+    "FINDING-EXAMPLE"
+  ],
+  "exception_ids": []
+}

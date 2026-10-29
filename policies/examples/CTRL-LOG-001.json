@@ -1,0 +1,11 @@
+{
+  "kind": "control",
+  "id": "CTRL-LOG-001",
+  "version": "0.1.0",
+  "obligation_ids": [
+    "REG-PIPA-029"
+  ],
+  "objective": "민원 본문의 불필요한 일반 앱 로그 복제를 방지한다.",
+  "owner_role": "서비스 책임자",
+  "coverage": "not_implemented"
+}

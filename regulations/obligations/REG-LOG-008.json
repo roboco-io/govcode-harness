@@ -1,0 +1,14 @@
+{
+  "kind": "obligation",
+  "id": "REG-LOG-008",
+  "version": "2026-10-28-draft",
+  "source_id": "SRC-SAFETY-2026",
+  "clause": "제8조",
+  "basis_kind": "statutory_obligation",
+  "verification": "partial",
+  "applicability": "pending",
+  "effective_from": null,
+  "effective_until": null,
+  "temporal_note": "개정 본문과 시행 유예 부칙을 함께 대조해야 한다. 기준일 적용 구간 미확정.",
+  "summary": "개인정보처리시스템 접속기록의 보관과 점검."
+}

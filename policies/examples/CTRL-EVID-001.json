@@ -1,0 +1,12 @@
+{
+  "kind": "control",
+  "id": "CTRL-EVID-001",
+  "version": "0.1.0",
+  "obligation_ids": [
+    "REG-PIPA-029",
+    "REG-DECREE-030"
+  ],
+  "objective": "검사·수정 이력을 보관하고 접근·무결성을 검증한다.",
+  "owner_role": "플랫폼 운영자",
+  "coverage": "not_implemented"
+}

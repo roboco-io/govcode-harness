@@ -1,0 +1,29 @@
+{
+  "kind": "policy",
+  "id": "POL-EX-LOG-001",
+  "version": "0.1.0",
+  "control_id": "CTRL-LOG-001",
+  "basis_kind": "example_policy",
+  "lifecycle": "draft",
+  "enabled": false,
+  "scope": {
+    "tenant_id": "TENANT-EXAMPLE",
+    "project_id": "PROJECT-EXAMPLE",
+    "languages": [
+      "python"
+    ],
+    "stage": "merge"
+  },
+  "condition": {
+    "field": "finding.category",
+    "operator": "eq",
+    "value": "pii_logging_risk"
+  },
+  "effect": "deny",
+  "evidence_requirements": [
+    "run_provenance",
+    "decision",
+    "coverage",
+    "storage_receipt"
+  ]
+}

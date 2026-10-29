@@ -1,0 +1,12 @@
+{
+  "kind": "decision",
+  "id": "DECISION-NO-POLICY-EXAMPLE",
+  "run_id": "RUN-NO-POLICY-EXAMPLE",
+  "outcome": "error",
+  "reason_codes": [
+    "NO_ACTIVE_POLICY"
+  ],
+  "policy_refs": [],
+  "finding_ids": [],
+  "exception_ids": []
+}

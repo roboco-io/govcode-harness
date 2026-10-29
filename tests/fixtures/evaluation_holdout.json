@@ -1,0 +1,286 @@
+{
+  "format": "govcode-evaluation-v1",
+  "split": "holdout",
+  "cases": [
+    {
+      "id": "R2-HOLDOUT-R-logger_factory",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\nimport logging\nlog = logging.getLogger(\"SYNTHETIC\")\ndef handle(citizen):\n    log.info(citizen)\n",
+      "rationale": "Factory logger is a recognized sink."
+    },
+    {
+      "id": "R2-HOLDOUT-R-logger_alias",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(phone, logger):\n    journal = logger\n    journal.error(phone)\n",
+      "rationale": "Logger alias retains sink identity."
+    },
+    {
+      "id": "R2-HOLDOUT-R-deferred_format",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(body, logger):\n    logger.info(\"SYNTHETIC %s\", body)\n",
+      "rationale": "Deferred formatting exposes argument."
+    },
+    {
+      "id": "R2-HOLDOUT-R-extra_field",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(data, logger):\n    logger.info(\"SYNTHETIC\", extra={\"record\": data})\n",
+      "rationale": "Structured extra contains raw data."
+    },
+    {
+      "id": "R2-HOLDOUT-R-branch_tainted_arm",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(form, status, logger):\n    value = \"SYNTHETIC\"\n    if status:\n        value = form\n    logger.info(value)\n",
+      "rationale": "One branch can place a form into the log."
+    },
+    {
+      "id": "R2-HOLDOUT-R-branch_both_tainted",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(body, token, status, logger):\n    if status:\n        value = body\n    else:\n        value = token\n    logger.warning(value)\n",
+      "rationale": "Both branches retain sensitive sources."
+    },
+    {
+      "id": "R2-HOLDOUT-R-private_container",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef _pack(citizen):\n    return {\"entry\": citizen}\ndef handle(payload, logger):\n    logger.debug(_pack(payload))\n",
+      "rationale": "Private helper embeds raw payload."
+    },
+    {
+      "id": "R2-HOLDOUT-R-private_chain",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef _first(body):\n    return body\ndef _second(data):\n    return _first(data)\ndef handle(citizen, logger):\n    logger.info(_second(citizen))\n",
+      "rationale": "Two closed private helpers preserve source."
+    },
+    {
+      "id": "R2-HOLDOUT-R-except_exception_alias",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(form, logger):\n    try:\n        raise ValueError(form)\n    except ValueError as problem:\n        logger.warning(problem)\n",
+      "rationale": "Caught exception string retains form."
+    },
+    {
+      "id": "R2-HOLDOUT-R-except_exc_info",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(token, logger):\n    try:\n        raise RuntimeError(token)\n    except RuntimeError:\n        logger.error(\"SYNTHETIC\", exc_info=True)\n",
+      "rationale": "Exception traceback includes token."
+    },
+    {
+      "id": "R2-HOLDOUT-R-nested_container",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(phone, logger):\n    bundle = {\"outer\": [phone]}\n    logger.critical(bundle)\n",
+      "rationale": "Nested container retains phone."
+    },
+    {
+      "id": "R2-HOLDOUT-R-container_read",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(data, logger):\n    bundle = {\"entry\": data}\n    logger.info(bundle[\"entry\"])\n",
+      "rationale": "Reading a container does not sanitize."
+    },
+    {
+      "id": "R2-HOLDOUT-R-body_concat",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(body, logger):\n    logger.info(\"SYNTHETIC \" + body)\n",
+      "rationale": "Concatenation preserves raw content."
+    },
+    {
+      "id": "R2-HOLDOUT-R-audit_raw",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(citizen, audit):\n    audit.info(\"SYNTHETIC\", extra={\"citizen\": citizen})\n",
+      "rationale": "Audit sink must not receive raw citizen record."
+    },
+    {
+      "id": "R2-HOLDOUT-R-private_formatted",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef _describe(phone):\n    return f\"SYNTHETIC {phone}\"\ndef handle(token, logger):\n    logger.error(_describe(token))\n",
+      "rationale": "Private formatting helper does not redact token."
+    },
+    {
+      "id": "R2-HOLDOUT-R-traceback_container",
+      "expected_risk": true,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(citizen, logger):\n    try:\n        raise ValueError({\"entry\": citizen})\n    except ValueError:\n        logger.exception(\"SYNTHETIC failed\")\n",
+      "rationale": "Traceback includes nested citizen record."
+    },
+    {
+      "id": "R2-HOLDOUT-S-branch_metadata",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(request_id, operation, status, logger):\n    if status:\n        value = request_id\n    else:\n        value = operation\n    logger.debug(value)\n",
+      "rationale": "Both arms use contract-trusted metadata."
+    },
+    {
+      "id": "R2-HOLDOUT-S-logging_constant",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\nimport logging\ndef handle():\n    logging.info(\"SYNTHETIC\")\n",
+      "rationale": "Stdlib sink receives only constant."
+    },
+    {
+      "id": "R2-HOLDOUT-S-logging_alias_safe",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\nimport logging as journal\ndef handle(status):\n    journal.warning(status)\n",
+      "rationale": "Aliased stdlib sink receives contract state."
+    },
+    {
+      "id": "R2-HOLDOUT-S-logging_import_safe",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\nfrom logging import info\ndef handle(operation):\n    info(operation)\n",
+      "rationale": "Imported sink receives fixed operation code."
+    },
+    {
+      "id": "R2-HOLDOUT-S-factory_safe",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\nimport logging\nlogger = logging.getLogger(\"SYNTHETIC\")\ndef handle(request_id):\n    logger.info(request_id)\n",
+      "rationale": "Factory logger receives contract-trusted ID."
+    },
+    {
+      "id": "R2-HOLDOUT-S-audit_retained",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(request_id, operation, result_code, audit):\n    audit.info(\"SYNTHETIC completed\", extra={\"request_id\": request_id, \"operation\": operation, \"result_code\": result_code})\n",
+      "rationale": "Complete audit metadata retained under declared field contracts."
+    },
+    {
+      "id": "R2-HOLDOUT-S-private_audit_wrapper",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef _event(request_id, audit):\n    audit.info(\"SYNTHETIC\", extra={\"request_id\": request_id})\ndef handle(request_id, audit):\n    _event(request_id, audit)\n",
+      "rationale": "Closed private wrapper receives only contract-trusted ID."
+    },
+    {
+      "id": "R2-HOLDOUT-S-private_container_safe",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef _pack(operation, result_code):\n    return {\"operation\": operation, \"result_code\": result_code}\ndef handle(operation, result_code, logger):\n    logger.info(_pack(operation, result_code))\n",
+      "rationale": "Closed private helper contains only declared fixed metadata."
+    },
+    {
+      "id": "R2-HOLDOUT-S-except_constant",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(logger):\n    try:\n        raise ValueError(\"SYNTHETIC\")\n    except ValueError:\n        logger.error(\"SYNTHETIC failed\")\n",
+      "rationale": "Handler emits only fixed event without traceback."
+    },
+    {
+      "id": "R2-HOLDOUT-S-except_metadata",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(request_id, audit):\n    try:\n        raise ValueError(\"SYNTHETIC\")\n    except ValueError:\n        audit.info(\"SYNTHETIC failed\", extra={\"request_id\": request_id})\n",
+      "rationale": "Handler retains fixed failure event and contract opaque ID."
+    },
+    {
+      "id": "R2-HOLDOUT-S-except_no_exception_output",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(body, logger):\n    try:\n        raise ValueError(body)\n    except ValueError:\n        logger.error(\"SYNTHETIC rejected\", exc_info=False)\n",
+      "rationale": "Raw exception never reaches message or traceback; exc_info is explicitly false."
+    },
+    {
+      "id": "R2-HOLDOUT-S-nested_safe_metadata",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(status, request_id, logger):\n    record = {\"event\": [status, request_id]}\n    logger.info(record)\n",
+      "rationale": "Nested fields contain only contract metadata."
+    },
+    {
+      "id": "R2-HOLDOUT-S-discard_source",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(form, result_code, logger):\n    current = form\n    current = result_code\n    logger.info(current)\n",
+      "rationale": "Reassigned value is contract-trusted result code."
+    },
+    {
+      "id": "R2-HOLDOUT-S-logger_alias_safe",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(status, logger):\n    journal = logger\n    journal.info(status)\n",
+      "rationale": "Sink alias receives only contract state."
+    },
+    {
+      "id": "R2-HOLDOUT-S-constant_concat",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(logger):\n    logger.info(\"SYNTHETIC_\" + \"COMPLETE\")\n",
+      "rationale": "Concatenation of fixed constants is safe."
+    },
+    {
+      "id": "R2-HOLDOUT-S-private_audit_business",
+      "expected_risk": false,
+      "target_support": "supported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef _audit(request_id, operation, audit):\n    audit.info({\"request_id\": request_id, \"operation\": operation})\ndef handle(citizen, request_id, operation, audit):\n    _audit(request_id, operation, audit)\n    return citizen\n",
+      "rationale": "Closed private audit wrapper preserves business return and required contract metadata."
+    },
+    {
+      "id": "R2-HOLDOUT-R-external_wrapper",
+      "expected_risk": true,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\nfrom synthetic_framework import emit\ndef handle(payload):\n    emit(payload)\n",
+      "rationale": "External emit contract writes its argument to logs; wrapper behavior needs review."
+    },
+    {
+      "id": "R2-HOLDOUT-R-while_sink",
+      "expected_risk": true,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(body, logger, status):\n    while status:\n        logger.warning(body)\n        break\n",
+      "rationale": "Loop semantics are unsupported; reachable body log is risky."
+    },
+    {
+      "id": "R2-HOLDOUT-R-decorated_helper",
+      "expected_risk": true,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\n@external_export\ndef _emit(data, logger):\n    logger.info(data)\ndef handle(citizen, logger):\n    _emit(citizen, logger)\n",
+      "rationale": "Decorator invalidates closed private-helper assumption; citizen log remains risky."
+    },
+    {
+      "id": "R2-HOLDOUT-R-comprehension_sink",
+      "expected_risk": true,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(form, logger):\n    values = [entry for entry in form]\n    logger.info(values)\n",
+      "rationale": "Comprehension flow is unsupported; form contents are retained."
+    },
+    {
+      "id": "R2-HOLDOUT-S-external_fixed_wrapper",
+      "expected_risk": false,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\nfrom synthetic_framework import emit\ndef handle():\n    emit(\"SYNTHETIC\")\n",
+      "rationale": "External log wrapper requires review; declared wrapper emits only its constant argument."
+    },
+    {
+      "id": "R2-HOLDOUT-S-while_constant",
+      "expected_risk": false,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(status, logger):\n    while status:\n        logger.info(\"SYNTHETIC\")\n        break\n",
+      "rationale": "Loop requires review; no identifying content is emitted."
+    },
+    {
+      "id": "R2-HOLDOUT-S-decorated_safe_helper",
+      "expected_risk": false,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\n@external_export\ndef _emit(logger):\n    logger.info(\"SYNTHETIC\")\ndef handle(logger):\n    _emit(logger)\n",
+      "rationale": "Decorator requires review even though helper has no sensitive input and logs constant."
+    },
+    {
+      "id": "R2-HOLDOUT-S-comprehension_constant",
+      "expected_risk": false,
+      "target_support": "unsupported",
+      "source": "# SYNTHETIC evaluation fixture; never execute as agency code.\ndef handle(logger):\n    values = [value for value in (\"SYNTHETIC_A\", \"SYNTHETIC_B\")]\n    logger.info(values)\n",
+      "rationale": "Comprehension requires review; every element is a fixed marker."
+    }
+  ]
+}

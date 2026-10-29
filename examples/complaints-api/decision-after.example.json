@@ -1,0 +1,17 @@
+{
+  "kind": "decision",
+  "id": "DECISION-AFTER-EXAMPLE",
+  "run_id": "RUN-AFTER-EXAMPLE",
+  "outcome": "allow",
+  "reason_codes": [
+    "REQUIRED_CHECKS_PASSED_EXAMPLE"
+  ],
+  "policy_refs": [
+    {
+      "id": "POL-EX-LOG-001",
+      "version": "0.1.0"
+    }
+  ],
+  "finding_ids": [],
+  "exception_ids": []
+}

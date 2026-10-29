@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools==80.9.0", "wheel==0.45.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "govcode-harness"
+dynamic = ["version"]
+description = "Local synthetic reference for public-sector code policy checks and evidence"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+reference = ["cryptography==50.0.2", "jsonschema==4.26.0"]
+
+[tool.setuptools.dynamic]
+version = {attr = "govcode_harness.__version__"}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["govcode_harness*", "policies"]
+
+[tool.setuptools.package-data]
+govcode_harness = ["ui/*.html", "ui/*.css", "ui/*.js"]
+
+policies = ["local-demo/*.json"]

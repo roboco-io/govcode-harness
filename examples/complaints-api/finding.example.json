@@ -1,0 +1,18 @@
+{
+  "kind": "finding",
+  "id": "FINDING-EXAMPLE",
+  "run_id": "RUN-BEFORE-EXAMPLE",
+  "detector_id": "python-log-flow-example",
+  "detector_version": "0.1.0",
+  "category": "pii_logging_risk",
+  "severity": "high",
+  "confidence": 1.0,
+  "location": {
+    "path": "examples/complaints-api/before.py",
+    "line": 4
+  },
+  "data_classes": [
+    "request_body"
+  ],
+  "coverage": "supported"
+}

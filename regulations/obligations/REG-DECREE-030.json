@@ -1,0 +1,14 @@
+{
+  "kind": "obligation",
+  "id": "REG-DECREE-030",
+  "version": "2026-10-28-draft",
+  "source_id": "SRC-DECREE-030",
+  "clause": "제30조제1항",
+  "basis_kind": "statutory_obligation",
+  "verification": "verified_clause",
+  "applicability": "conditional",
+  "effective_from": "2026-09-11",
+  "effective_until": null,
+  "temporal_note": "해당 조문정보 확인. 기술적·관리적 조치의 기관별 적용은 별도 검토.",
+  "summary": "내부 관리, 접근 제한, 기록 보호 등 안전조치."
+}

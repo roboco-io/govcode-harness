@@ -1,0 +1,11 @@
+{
+  "kind": "control",
+  "id": "CTRL-AUDIT-001",
+  "version": "0.1.0",
+  "obligation_ids": [
+    "REG-LOG-008"
+  ],
+  "objective": "필수 접속기록과 앱 로그를 분류하고 적용 기준을 확인한다.",
+  "owner_role": "개인정보 담당자",
+  "coverage": "not_implemented"
+}

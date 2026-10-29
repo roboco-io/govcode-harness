@@ -1,0 +1,34 @@
+# EXAMPLE ONLY: administrator-owned workflow and runner installation required.
+# Store this workflow in a trusted control repository, not in PR-owned config.
+# Configure required checks separately. No secrets or write token on PR forks.
+name: GovCode local reference gate
+on: [pull_request]
+permissions:
+  contents: read
+jobs:
+  reference-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          submodules: false
+          lfs: false
+      # The runner administrator provisions both files from reviewed harness code.
+      # Do not install requirements or invoke ci/reference-gate.sh from checkout.
+      - name: Scan and gate the exact CI commit
+        env:
+          GOVCODE_PYTHON: /opt/govcode/bin/python3
+          GOVCODE_REPO: ${{ github.workspace }}
+          GOVCODE_EXPECTED_COMMIT: ${{ github.sha }}
+          GOVCODE_ARTIFACTS: ${{ runner.temp }}/govcode-${{ github.run_id }}-${{ github.run_attempt }}
+          GOVCODE_WITH_IRON_LAWS: '0'
+        run: /opt/govcode/ci/reference-gate.sh
+      - name: Preserve redacted proof even when denied
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: govcode-redacted-proof
+          path: ${{ runner.temp }}/govcode-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error

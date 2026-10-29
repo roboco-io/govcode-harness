@@ -1,0 +1,34 @@
+{
+  "kind": "evidence",
+  "id": "EVIDENCE-EXAMPLE",
+  "run_id": "RUN-AFTER-EXAMPLE",
+  "parent_run_id": "RUN-BEFORE-EXAMPLE",
+  "decision_id": "DECISION-AFTER-EXAMPLE",
+  "provenance_kind": "example",
+  "artifacts": [
+    {
+      "path": "examples/complaints-api/before.py",
+      "sha256": "402be70fc3b663070c36365931e6f93a2043576797c02e0c4e64ac812d79c9e4",
+      "media_type": "text/x-python"
+    },
+    {
+      "path": "examples/complaints-api/after.py",
+      "sha256": "be9ef7129613466e64193858e5e246e45177c2d3a8ce3b92efe58199099a3ec4",
+      "media_type": "text/x-python"
+    },
+    {
+      "path": "examples/complaints-api/decision-before.example.json",
+      "sha256": "1970b5ffae6a5df89dae41ed7124de42c5d1197cdecd8b37f4a40b1f49d1155b",
+      "media_type": "application/json"
+    },
+    {
+      "path": "examples/complaints-api/decision-after.example.json",
+      "sha256": "6991d866913933fbbdd6dc0549f7db79c3243727f97615648e17226c03239e1b",
+      "media_type": "application/json"
+    }
+  ],
+  "signature_status": "not_signed",
+  "receipt_status": "pending",
+  "retention_policy_id": null,
+  "manifest_digest": "5bc47b6ad5590c54ef15dad07c931f886ac35cadfbf33946ac969a0bdae9a4d7"
+}
