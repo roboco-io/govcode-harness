@@ -2,13 +2,15 @@
 
 ## 보안이 내재화된 개발 하네스
 
+**프로젝트 목적:** 다양한 공공 프로젝트에서 비개발자가 안전하게 바이브 코딩을 할 수 있도록 한다. [의도 문서](INTENT.md)를 제품 설명과 구현 방향의 기준으로 삼습니다.
+
 **개발의 속도와 보안의 신뢰를 함께 설계하세요.**
 
 GovCode Harness는 보안 기준을 개발 과정에서 실행할 수 있도록 **검사 → 수정 지원 → 재검사 → 승인·증적**을 연결하는 오픈소스 프로젝트입니다. 개발 도구와 정책·검토 절차를 연결해, 팀이 다음에 할 일과 판단 근거를 같은 흐름에서 확인하도록 돕습니다.
 
 공공 프로젝트에 적용되는 법령·규칙·가이드라인을 수행 작업과 검증 근거로 연결하는 것이 목표입니다. 개인정보 로깅을 첫 사례로 시작해, 프로젝트별 요구와 분야별 규정 팩으로 확장을 설계하고 있습니다.
 
-> **현재 파일럿 단계입니다.** 합성 자료로 검증한 v0.9.0 로컬 참조 구현을 체험할 수 있습니다. 프로젝트 코드는 **Apache-2.0 조건에 따라 라이선스 비용이나 로열티 없이** 사용할 수 있습니다. 사용 경험과 문서·코드 기여를 환영합니다.
+> **현재 파일럿 단계입니다.** 합성 자료로 검증한 v0.10.0 로컬 참조 구현을 체험할 수 있습니다. 프로젝트 코드는 **Apache-2.0 조건에 따라 라이선스 비용이나 로열티 없이** 사용할 수 있습니다. 사용 경험과 문서·코드 기여를 환영합니다.
 
 [프로젝트 소개](https://roboco.io/govcode-harness-guide/) · [직접 체험하기](https://roboco.io/govcode-harness-guide/onboarding.html) · [파일럿 피드백 남기기](https://github.com/roboco-io/govcode-harness/issues/new?template=01-feedback.yml) · [기여 안내](CONTRIBUTING.md)
 
@@ -41,7 +43,7 @@ AI는 설명과 수정안을 제안하고, 정책 엔진과 필수 검사가 결
 Python 3.10 이상과 Git이 필요합니다. 처음 시작한다면 라이선스 파일이 포함된 고정 태그를 새 폴더에 받으세요. 데모는 추가 Python 패키지 없이 실행할 수 있습니다.
 
 ```sh
-git clone --branch v0.9.0-apache2 --depth 1 https://github.com/roboco-io/govcode-harness.git
+git clone --branch v0.10.0 --depth 1 https://github.com/roboco-io/govcode-harness.git
 cd govcode-harness
 python3 -m govcode_harness demo --output .runtime/first-slice
 ```
@@ -63,9 +65,25 @@ python3 -m govcode_harness demo --output .runtime/first-slice
 .runtime/reference-venv/bin/python -m govcode_harness reference-demo --output .runtime/my-reference-demo
 ```
 
+## R7-A~D 프로젝트 프로필·규정 팩 참조 구현
+
+공통 계약·프로필 버전·독립 승인에 더해, 규정 팩 서명 발행·잠금과 적용성 판단을 추가했습니다. v0.10.0 사전 릴리스에 포함합니다.
+[프로필 실행 안내](docs/PROJECT_PROFILE_RUNBOOK.md), [팩·적용성 실행 안내](docs/RULE_PACK_APPLICABILITY_RUNBOOK.md)와 [R7 후속 계획](docs/plans/2026-10-29-project-profile-rule-packs.review.md)을 따릅니다.
+
+```sh
+.runtime/reference-venv/bin/python -m govcode_harness project profile-demo --output .runtime/my-profile-demo
+```
+
+실제 서명으로 두 버전을 승인하고 자기 승인 거부·초안의 기존 승인 보존·미확정 정보와 false의 구분을 확인합니다.
+```sh
+.runtime/reference-venv/bin/python -m govcode_harness project pack-demo --output .runtime/my-pack-demo
+```
+
+서명 팩 발행·의존성 잠금·미확정 정보 검토·독립 제외 승인·재판단·철회 거부를 확인합니다. 적용성 판단 완료는 요구 충족이나 gate allow가 아닙니다. 산출물 검사·충족 평가·새 단계 게이트는 R7-E 이후 범위입니다.
+
 ## 지금 확인할 수 있는 범위
 
-현재 v0.9.0은 **제한된 Python 민원 API 로깅 사례와 공통 정책·승인·증적 기반**을 제공합니다.
+현재 v0.10.0은 **제한된 Python 민원 API 로깅 사례, 공통 정책·승인·증적 기반, 프로젝트 프로필·규정 팩·적용성 판단과 문서 초안 생성**을 제공합니다.
 
 | 기능 | 현재 상태 |
 | --- | --- |
@@ -85,7 +103,7 @@ python3 -m govcode_harness demo --output .runtime/first-slice
 
 프로젝트 프로필로 적용 조건을 정리하고, 분야별 규정 팩으로 요구·작업·산출물·검사·담당자 검토·증적을 연결하는 방향입니다. 개인정보·보안에서 시작해 접근성, 개발 품질, 표준·상호운용성, 사업 산출물, 운영·보존 요구로 확장할 계획입니다.
 
-이 기능들은 후속 설계·구현 범위입니다. 첫 로깅 사례의 결과를 다른 분야의 검증 결과로 일반화하지 않습니다. [제품 목적](INTENT.md), [전체 범위와 후속 설계](docs/PRODUCT_DIRECTION.md), [구현 계획](docs/IMPLEMENTATION_ROADMAP.md)에서 방향을 확인하고 의견을 보태 주세요.
+프로필·규정 팩·적용성 판단은 로컬 참조로 구현했습니다. 분야별 산출물 검사와 충족 평가는 후속 설계·구현 범위입니다. 첫 로깅 사례의 결과를 다른 분야의 검증 결과로 일반화하지 않습니다. [제품 목적](INTENT.md), [전체 범위와 후속 설계](docs/PRODUCT_DIRECTION.md), [구현 계획](docs/IMPLEMENTATION_ROADMAP.md)에서 방향을 확인하고 의견을 보태 주세요.
 
 ## 더 자세히 알아보기
 
@@ -103,4 +121,13 @@ python3 -m govcode_harness demo --output .runtime/first-slice
 
 선택적 오철칙 연동의 [기존 MIT 라이선스](integrations/iron-laws/LICENSE)는 유지됩니다. 별도 [가이드·브로슈어](https://github.com/roboco-io/govcode-harness-guide)는 CC BY 4.0입니다.
 
-라이선스 파일을 포함한 고정 소스 태그는 `v0.9.0-apache2`입니다. 기존 `v0.9.0` 태그는 보존하며 검사 기능·코드 버전은 동일합니다.
+현재 고정 소스 태그는 `v0.10.0`입니다. 기존 `v0.9.0`과 `v0.9.0-apache2` 태그는 보존합니다. [릴리스 범위](docs/releases/v0.10.0.md)를 확인하세요.
+
+## AI 친화적 설계 문서 초안
+
+[문서 생성 안내](docs/DOCUMENT_GENERATION.md)에 따라 PRD·아키텍처·정책 모델·추적 매트릭스·ADR·백로그 초안을 새 폴더에 생성할 수 있습니다.
+행안부 원칙 기반의 작성 정책을 적용하고, 미제공 정보와 수동 검토 항목을 별도로 기록합니다. 문서 생성은 승인이나 준수 인증을 뜻하지 않습니다.
+
+```sh
+.runtime/reference-venv/bin/python -m govcode_harness project document-kit --output .runtime/design-documents
+```
