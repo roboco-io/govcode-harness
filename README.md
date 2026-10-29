@@ -68,3 +68,11 @@ python3 -m govcode_harness demo --output .runtime/first-slice
 실제 HTTP·OS 격리가 허용되는 환경에서 전체 인수 시험을 수행한다. 현재 전체 참조 검증 플랫폼은 macOS다.
 원래 스캐폴드 JSON은 정적 예시이며 실제 실행은 지정한 새 폴더에 생성한다.
 공개 코드와 안내 사이트는 [공개 안내](docs/PUBLICATION.md)를 따른다. 실제 기관 운영 배포와 업무 CI 적용은 별도다.
+
+## 라이선스
+
+본 프로젝트는 [Apache License 2.0](LICENSE)으로 제공한다. [NOTICE](NOTICE)의 저작권·제3자 표시를 유지한다.
+선택적 오철칙 연동의 [기존 MIT 라이선스](integrations/iron-laws/LICENSE)는 그대로 적용된다.
+별도 [가이드·브로슈어](https://github.com/roboco-io/govcode-harness-guide)는 CC BY 4.0이다.
+
+라이선스 파일을 포함한 고정 소스 태그는 `v0.9.0-apache2`다. 기존 `v0.9.0` 태그는 변경하지 않으며 검사 기능·코드 버전은 동일하다.

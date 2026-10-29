@@ -8,6 +8,8 @@ dynamic = ["version"]
 description = "Local synthetic reference for public-sector code policy checks and evidence"
 requires-python = ">=3.10"
 dependencies = []
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE", "integrations/iron-laws/LICENSE"]
 
 [project.optional-dependencies]
 reference = ["cryptography==50.0.2", "jsonschema==4.26.0"]
