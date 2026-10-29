@@ -142,3 +142,13 @@ archive는 검증한 같은 바이트의 manifest에 묶은 파생 투영이며 
 
 model proposal의 new_content는 private 수정 검토 자료다. 영구 receipt는 코드 원문 대신 proposal/approval digest·모델/프롬프트·전후 commit·범위·검사 상태만 담는다.
 fixture 모델과 실제 모델 실행 여부를 구분한다.
+
+## R7-A/B 공통 계약과 프로필
+
+새 프로젝트 계약·프로필의 실제 형태와 서명 버전 관리는 [프로필 실행 안내](PROJECT_PROFILE_RUNBOOK.md)와 [ADR-0013](adr/0013-project-profile-contracts.md)를 따른다.
+새 스키마는 기존 catalog와 분리했고, 프로필 승인과 규정 적용·충족 상태를 구분한다. 팩 발행·잠금·적용성의 후속 실행 구현은 아래 R7-C/D 현황을 따른다. 충족 평가 실행 엔진은 아직 구현하지 않았다.
+
+## R7-C/D 서명 운영 계약
+
+기존 네 프로젝트 스키마에 팩 동작·발행·철회·선택 요청·선택 검토·잠금 발행·적용성 검토·보고서의 닫힌 계약을 추가했다. [실행 안내](RULE_PACK_APPLICABILITY_RUNBOOK.md)와 [ADR-0014](adr/0014-rule-pack-lock-applicability.md)를 따른다.
+단순 PackApproval 데이터 형태와 실제 서명한 rule_pack_action의 approve 동작은 구분한다. 적용성 보고서는 선택 잠금본의 분모·검토 대기·이유를 포함하며 충족률이나 법적 인증이 아니다.

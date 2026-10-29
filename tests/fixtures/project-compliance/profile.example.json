@@ -1,0 +1,44 @@
+{
+  "schema_version": "1",
+  "context": "synthetic_reference",
+  "tenant_id": "t",
+  "project_id": "p",
+  "operational_approval": false,
+  "kind": "project_profile",
+  "id": "PROFILE-DELIVERY",
+  "revision": 1,
+  "parent_digest": null,
+  "jurisdiction": "KR",
+  "project_type": "software_delivery",
+  "stage": "acceptance",
+  "owner_ref": "alice",
+  "lifecycle": "draft",
+  "source_refs": [
+    {
+      "id": "SRC-EXAMPLE",
+      "version": "1",
+      "category": "example",
+      "verification": "confirmed",
+      "digest": "1111111111111111111111111111111111111111111111111111111111111111"
+    }
+  ],
+  "facts": {
+    "public_web": {
+      "state": "known",
+      "value_type": "boolean",
+      "value": false,
+      "source_ref": "SRC-EXAMPLE"
+    },
+    "procurement_type": {
+      "state": "unknown",
+      "owner_ref": "alice",
+      "reason_ref": "TASK-CONFIRM-CONTRACT"
+    },
+    "mobile_app": {
+      "state": "not_applicable",
+      "owner_ref": "alice",
+      "reason_ref": "REVIEW-NO-MOBILE",
+      "source_ref": "SRC-EXAMPLE"
+    }
+  }
+}

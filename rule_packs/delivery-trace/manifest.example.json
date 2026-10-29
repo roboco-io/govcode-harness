@@ -1,0 +1,44 @@
+{
+  "schema_version": "1",
+  "context": "synthetic_reference",
+  "tenant_id": "TENANT-REFERENCE",
+  "project_id": "PROJECT-DELIVERY-REFERENCE",
+  "operational_approval": false,
+  "kind": "rule_pack_manifest",
+  "pack_id": "PACK-DELIVERY-TRACE",
+  "version": "0.1.0",
+  "domain": "delivery_trace",
+  "source_refs": [
+    {
+      "id": "SRC-EXAMPLE",
+      "version": "1",
+      "category": "example",
+      "verification": "confirmed",
+      "digest": "dc608786dc91991a174249a73ed6a4b271373cdb1035dbecd967b353f085205a"
+    }
+  ],
+  "requirement_refs": [
+    {
+      "kind": "requirement_spec",
+      "id": "REQ-DEL-WEB",
+      "version": "0.1.0",
+      "digest": "b7a8ccdd51eca714fec9405e3dfadd2660f96df027ad2eefbb7fc3d3d2df1e42"
+    },
+    {
+      "kind": "requirement_spec",
+      "id": "REQ-DEL-CONTRACT",
+      "version": "0.1.0",
+      "digest": "f0b9aa35d38f485d7108d9394c9cf2ca32dbfb8e4e0986c093980fa0327c8571"
+    }
+  ],
+  "task_templates": [],
+  "check_specs": [
+    {
+      "id": "CHECK-TRACE",
+      "adapter_id": "delivery.trace_integrity"
+    }
+  ],
+  "dependencies": [],
+  "not_before": "2026-10-29T00:00:00Z",
+  "expires_at": "2026-11-29T00:00:00Z"
+}

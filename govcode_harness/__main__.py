@@ -11,6 +11,9 @@ class Parser(argparse.ArgumentParser):
 
 def main(argv=None):
     arguments = list(sys.argv[1:] if argv is None else argv)
+    if arguments and arguments[0] == 'project':
+        from .project_cli import main as project_main
+        return project_main(arguments[1:])
     if arguments and arguments[0] in ('gate', 'evaluate', 'reference-demo', 'control'):
         if arguments[0] == 'gate':
             from .gate import main as dispatch
@@ -35,6 +38,7 @@ def main(argv=None):
         return dispatch(arguments[1:])
     parser = Parser(prog='python -m govcode_harness')
     sub = parser.add_subparsers(dest='command', required=True)
+    sub.add_parser('project', help='project profiles, signed rule packs and applicability reference')
     sub.add_parser('control', help='serve a private synthetic reference control configuration')
     sub.add_parser('gate', help='verify current-commit evidence and optional signed reference policy')
     sub.add_parser('evaluate', help='evaluate a synthetic detector corpus')

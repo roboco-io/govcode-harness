@@ -1,0 +1,459 @@
+[
+  {
+    "schema_version": "1",
+    "context": "synthetic_reference",
+    "tenant_id": "t",
+    "project_id": "p",
+    "operational_approval": false,
+    "kind": "project_profile",
+    "id": "PROFILE-DELIVERY",
+    "revision": 1,
+    "parent_digest": null,
+    "jurisdiction": "KR",
+    "project_type": "software_delivery",
+    "stage": "acceptance",
+    "owner_ref": "alice",
+    "lifecycle": "draft",
+    "source_refs": [
+      {
+        "id": "SRC-EXAMPLE",
+        "version": "1",
+        "category": "example",
+        "verification": "confirmed",
+        "digest": "1111111111111111111111111111111111111111111111111111111111111111"
+      }
+    ],
+    "facts": {
+      "public_web": {
+        "state": "known",
+        "value_type": "boolean",
+        "value": false,
+        "source_ref": "SRC-EXAMPLE"
+      },
+      "procurement_type": {
+        "state": "unknown",
+        "owner_ref": "alice",
+        "reason_ref": "TASK-CONFIRM-CONTRACT"
+      },
+      "mobile_app": {
+        "state": "not_applicable",
+        "owner_ref": "alice",
+        "reason_ref": "REVIEW-NO-MOBILE",
+        "source_ref": "SRC-EXAMPLE"
+      }
+    }
+  },
+  {
+    "schema_version": "1",
+    "context": "synthetic_reference",
+    "tenant_id": "t",
+    "project_id": "p",
+    "operational_approval": false,
+    "kind": "requirement_spec",
+    "id": "REQ-DEL-001",
+    "version": "1",
+    "source_ref": {
+      "id": "SRC-EXAMPLE",
+      "version": "1",
+      "category": "example",
+      "verification": "confirmed",
+      "digest": "1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    "source_category": "example",
+    "source_verification": "confirmed",
+    "normativity": "example",
+    "basis_kind": "example_policy",
+    "applicability_expr": {
+      "op": "eq",
+      "fact": "public_web",
+      "value": {
+        "value_type": "boolean",
+        "value": false
+      }
+    },
+    "stages": [
+      "acceptance"
+    ],
+    "required_artifacts": [
+      "ART-DESIGN"
+    ],
+    "check_refs": [
+      "CHK-TRACE"
+    ],
+    "review_required": true
+  },
+  {
+    "schema_version": "1",
+    "context": "synthetic_reference",
+    "tenant_id": "t",
+    "project_id": "p",
+    "operational_approval": false,
+    "kind": "rule_pack_manifest",
+    "pack_id": "PACK-DELIVERY",
+    "version": "1",
+    "domain": "delivery_trace",
+    "source_refs": [
+      {
+        "id": "SRC-EXAMPLE",
+        "version": "1",
+        "category": "example",
+        "verification": "confirmed",
+        "digest": "1111111111111111111111111111111111111111111111111111111111111111"
+      }
+    ],
+    "requirement_refs": [
+      {
+        "kind": "requirement_spec",
+        "id": "REQ-DEL-001",
+        "version": "1",
+        "digest": "00fdf3092c606972068dc115f648020ff7698af31099f96427c4ef0bee0b5e0d"
+      }
+    ],
+    "task_templates": [
+      {
+        "id": "TASK-TRACE",
+        "action_type": "link_trace",
+        "owner_role": "author",
+        "artifact_kinds": [
+          "design"
+        ]
+      }
+    ],
+    "check_specs": [
+      {
+        "id": "CHK-TRACE",
+        "adapter_id": "delivery.trace_integrity"
+      }
+    ],
+    "dependencies": [],
+    "not_before": "2026-10-29T00:00:00Z",
+    "expires_at": "2026-11-29T00:00:00Z"
+  },
+  {
+    "schema_version": "1",
+    "context": "synthetic_reference",
+    "tenant_id": "t",
+    "project_id": "p",
+    "operational_approval": false,
+    "kind": "pack_approval",
+    "id": "APPROVAL-PACK",
+    "version": "1",
+    "pack_ref": {
+      "kind": "rule_pack_manifest",
+      "id": "PACK-DELIVERY",
+      "version": "1",
+      "digest": "28e45b2e0a2dd56afc2852d297382d7f9ea377ac15a8f61d10bd342accfd86ca"
+    },
+    "manifest_digest": "28e45b2e0a2dd56afc2852d297382d7f9ea377ac15a8f61d10bd342accfd86ca",
+    "author_ref": "alice",
+    "approver_ref": "bob",
+    "decision": "approved",
+    "not_before": "2026-10-29T00:00:00Z",
+    "expires_at": "2026-11-29T00:00:00Z"
+  },
+  {
+    "schema_version": "1",
+    "context": "synthetic_reference",
+    "tenant_id": "t",
+    "project_id": "p",
+    "operational_approval": false,
+    "kind": "project_pack_lock",
+    "id": "LOCK-DELIVERY",
+    "version": "1",
+    "profile_ref": {
+      "kind": "project_profile",
+      "id": "PROFILE-DELIVERY",
+      "version": "1",
+      "digest": "d3e27c0f3f8521ebfba4364b2a8cf397d7820236082c020040b3e95485c1d463"
+    },
+    "profile_digest": "d3e27c0f3f8521ebfba4364b2a8cf397d7820236082c020040b3e95485c1d463",
+    "pack_refs": [
+      {
+        "kind": "rule_pack_manifest",
+        "id": "PACK-DELIVERY",
+        "version": "1",
+        "digest": "28e45b2e0a2dd56afc2852d297382d7f9ea377ac15a8f61d10bd342accfd86ca"
+      }
+    ],
+    "policy_bundle_refs": [],
+    "selection_review_ref": "REVIEW-SELECTION",
+    "sequence": 1,
+    "not_before": "2026-10-29T00:00:00Z",
+    "expires_at": "2026-11-29T00:00:00Z"
+  },
+  {
+    "schema_version": "1",
+    "context": "synthetic_reference",
+    "tenant_id": "t",
+    "project_id": "p",
+    "operational_approval": false,
+    "kind": "applicability_decision",
+    "id": "APP-DEL-001",
+    "version": "1",
+    "requirement_ref": {
+      "kind": "requirement_spec",
+      "id": "REQ-DEL-001",
+      "version": "1",
+      "digest": "00fdf3092c606972068dc115f648020ff7698af31099f96427c4ef0bee0b5e0d"
+    },
+    "profile_digest": "d3e27c0f3f8521ebfba4364b2a8cf397d7820236082c020040b3e95485c1d463",
+    "pack_digest": "28e45b2e0a2dd56afc2852d297382d7f9ea377ac15a8f61d10bd342accfd86ca",
+    "result": "pending",
+    "reason_codes": [
+      "FACT_UNKNOWN"
+    ],
+    "fact_refs": [
+      "procurement_type"
+    ],
+    "reviewer_ref": null,
+    "review_ref": null
+  },
+  {
+    "schema_version": "1",
+    "context": "synthetic_reference",
+    "tenant_id": "t",
+    "project_id": "p",
+    "operational_approval": false,
+    "kind": "artifact_ref",
+    "id": "ART-DESIGN",
+    "version": "1",
+    "artifact_kind": "design",
+    "relative_path": "docs/design.md",
+    "content_digest": "2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  {
+    "schema_version": "1",
+    "context": "synthetic_reference",
+    "tenant_id": "t",
+    "project_id": "p",
+    "operational_approval": false,
+    "kind": "trace_link",
+    "id": "LINK-DESIGN",
+    "version": "1",
+    "from_ref": {
+      "kind": "requirement_spec",
+      "id": "REQ-DEL-001",
+      "version": "1",
+      "digest": "00fdf3092c606972068dc115f648020ff7698af31099f96427c4ef0bee0b5e0d"
+    },
+    "to_ref": {
+      "kind": "artifact_ref",
+      "id": "ART-DESIGN",
+      "version": "1",
+      "digest": "cd072c4a1b00bc4960c43e2c0fd870fd4197292c111a6227372e0870082032f2"
+    },
+    "relation": "implements"
+  },
+  {
+    "schema_version": "1",
+    "context": "synthetic_reference",
+    "tenant_id": "t",
+    "project_id": "p",
+    "operational_approval": false,
+    "kind": "review_decision",
+    "id": "REVIEW-DESIGN",
+    "version": "1",
+    "requirement_ref": {
+      "kind": "requirement_spec",
+      "id": "REQ-DEL-001",
+      "version": "1",
+      "digest": "00fdf3092c606972068dc115f648020ff7698af31099f96427c4ef0bee0b5e0d"
+    },
+    "subject_digest": "d5b498b35055b04b6be625fae9d6aa16c60c85c369f93a13d2971c4e4c263532",
+    "artifact_digests": {
+      "ART-DESIGN": "2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    "reviewer_ref": "bob",
+    "decision": "approved",
+    "reason_ref": "REVIEW-CONTENT",
+    "not_before": "2026-10-29T00:00:00Z",
+    "expires_at": "2026-11-29T00:00:00Z"
+  },
+  {
+    "schema_version": "1",
+    "context": "synthetic_reference",
+    "tenant_id": "t",
+    "project_id": "p",
+    "operational_approval": false,
+    "kind": "work_item",
+    "id": "WORK-CONFIRM",
+    "version": "1",
+    "requirement_ref": {
+      "kind": "requirement_spec",
+      "id": "REQ-DEL-001",
+      "version": "1",
+      "digest": "00fdf3092c606972068dc115f648020ff7698af31099f96427c4ef0bee0b5e0d"
+    },
+    "action_type": "provide_fact",
+    "owner_ref": "alice",
+    "stage": "acceptance",
+    "expected_artifacts": [
+      {
+        "kind": "artifact_ref",
+        "id": "ART-DESIGN",
+        "version": "1",
+        "digest": "cd072c4a1b00bc4960c43e2c0fd870fd4197292c111a6227372e0870082032f2"
+      }
+    ],
+    "blockers": [
+      "FACT-UNKNOWN"
+    ],
+    "status": "blocked"
+  },
+  {
+    "schema_version": "1",
+    "context": "synthetic_reference",
+    "tenant_id": "t",
+    "project_id": "p",
+    "operational_approval": false,
+    "kind": "requirement_assessment",
+    "id": "ASSESS-DEL-001",
+    "version": "1",
+    "requirement_ref": {
+      "kind": "requirement_spec",
+      "id": "REQ-DEL-001",
+      "version": "1",
+      "digest": "00fdf3092c606972068dc115f648020ff7698af31099f96427c4ef0bee0b5e0d"
+    },
+    "applicability_ref": {
+      "kind": "applicability_decision",
+      "id": "APP-DEL-001",
+      "version": "1",
+      "digest": "cef27f7bfcc2b0a1e1090dc461fa1baa0bb60f69a43753574cbec48d21bbb786"
+    },
+    "check_results": [],
+    "manual_review_required": true,
+    "review_refs": [],
+    "status": "review_required",
+    "reason_codes": [
+      "FACT_UNKNOWN"
+    ]
+  },
+  {
+    "schema_version": "1",
+    "context": "synthetic_reference",
+    "tenant_id": "t",
+    "project_id": "p",
+    "operational_approval": false,
+    "kind": "project_evaluation",
+    "id": "EVAL-DELIVERY",
+    "version": "1",
+    "subject_digest": "d5b498b35055b04b6be625fae9d6aa16c60c85c369f93a13d2971c4e4c263532",
+    "commit_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "profile_digest": "d3e27c0f3f8521ebfba4364b2a8cf397d7820236082c020040b3e95485c1d463",
+    "lock_digest": "a94a783a612ca6a0952c0164114ce0b20219b3d2352d99112d0704bc6e475dcf",
+    "artifact_manifest_digest": "3333333333333333333333333333333333333333333333333333333333333333",
+    "tool_digest": "4444444444444444444444444444444444444444444444444444444444444444",
+    "review_set_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "assessments": [
+      {
+        "kind": "requirement_assessment",
+        "id": "ASSESS-DEL-001",
+        "version": "1",
+        "digest": "7b70a2a421d275cabc23f80664397609f96bdc8566f2aa3e7a83ab5744be7684"
+      }
+    ],
+    "parent_ref": null
+  },
+  {
+    "schema_version": "1",
+    "context": "synthetic_reference",
+    "tenant_id": "t",
+    "project_id": "p",
+    "operational_approval": false,
+    "kind": "project_stage_receipt",
+    "id": "RECEIPT-DELIVERY",
+    "version": "1",
+    "evaluation_ref": {
+      "kind": "project_evaluation",
+      "id": "EVAL-DELIVERY",
+      "version": "1",
+      "digest": "609d06287e24c5fe8d4485cd9fddb2fc437dd74d6bdb4bbb588de7038465e74d"
+    },
+    "stage": "acceptance",
+    "outcome": "review_required",
+    "reason_codes": [
+      "FACT_UNKNOWN"
+    ],
+    "required_check_refs": [
+      "CHK-TRACE"
+    ],
+    "evidence_receipt_ref": "STORE-RECEIPT"
+  },
+  {
+    "schema_version": "1",
+    "context": "synthetic_reference",
+    "tenant_id": "t",
+    "project_id": "p",
+    "operational_approval": false,
+    "kind": "profile_approval",
+    "actor_id": "bob",
+    "event_id": "EVENT-APPROVE",
+    "created_at": "2026-10-29T00:00:00Z",
+    "expected_revision": 1,
+    "profile_id": "PROFILE-DELIVERY",
+    "revision": 1,
+    "profile_digest": "d3e27c0f3f8521ebfba4364b2a8cf397d7820236082c020040b3e95485c1d463",
+    "decision": "approve",
+    "reason_ref": "REVIEW-PROFILE",
+    "not_before": "2026-10-29T00:00:00Z",
+    "expires_at": "2026-11-29T00:00:00Z"
+  },
+  {
+    "schema_version": "1",
+    "context": "synthetic_reference",
+    "tenant_id": "t",
+    "project_id": "p",
+    "operational_approval": false,
+    "kind": "profile_action",
+    "actor_id": "alice",
+    "event_id": "EVENT-REVISE",
+    "created_at": "2026-10-29T00:00:00Z",
+    "expected_revision": 0,
+    "action": "revise",
+    "profile": {
+      "schema_version": "1",
+      "context": "synthetic_reference",
+      "tenant_id": "t",
+      "project_id": "p",
+      "operational_approval": false,
+      "kind": "project_profile",
+      "id": "PROFILE-DELIVERY",
+      "revision": 1,
+      "parent_digest": null,
+      "jurisdiction": "KR",
+      "project_type": "software_delivery",
+      "stage": "acceptance",
+      "owner_ref": "alice",
+      "lifecycle": "draft",
+      "source_refs": [
+        {
+          "id": "SRC-EXAMPLE",
+          "version": "1",
+          "category": "example",
+          "verification": "confirmed",
+          "digest": "1111111111111111111111111111111111111111111111111111111111111111"
+        }
+      ],
+      "facts": {
+        "public_web": {
+          "state": "known",
+          "value_type": "boolean",
+          "value": false,
+          "source_ref": "SRC-EXAMPLE"
+        },
+        "procurement_type": {
+          "state": "unknown",
+          "owner_ref": "alice",
+          "reason_ref": "TASK-CONFIRM-CONTRACT"
+        },
+        "mobile_app": {
+          "state": "not_applicable",
+          "owner_ref": "alice",
+          "reason_ref": "REVIEW-NO-MOBILE",
+          "source_ref": "SRC-EXAMPLE"
+        }
+      }
+    }
+  }
+]

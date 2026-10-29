@@ -1,0 +1,1739 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://govcode-harness.invalid/contracts/rule-pack-v1.schema.json",
+  "title": "GovCode project contracts v1: rule-pack",
+  "oneOf": [
+    {
+      "$ref": "#/definitions/requirement_spec"
+    },
+    {
+      "$ref": "#/definitions/rule_pack_manifest"
+    },
+    {
+      "$ref": "#/definitions/pack_approval"
+    },
+    {
+      "$ref": "#/definitions/project_pack_lock"
+    },
+    {
+      "$ref": "#/definitions/applicability_decision"
+    },
+    {
+      "$ref": "#/definitions/artifact_ref"
+    },
+    {
+      "$ref": "#/definitions/trace_link"
+    },
+    {
+      "$ref": "#/definitions/rule_pack_action"
+    },
+    {
+      "$ref": "#/definitions/rule_pack_release"
+    },
+    {
+      "$ref": "#/definitions/pack_selection_request"
+    },
+    {
+      "$ref": "#/definitions/pack_selection_review"
+    },
+    {
+      "$ref": "#/definitions/project_pack_lock_release"
+    },
+    {
+      "$ref": "#/definitions/applicability_review"
+    },
+    {
+      "$ref": "#/definitions/rule_pack_revocations"
+    }
+  ],
+  "definitions": {
+    "requirement_spec": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "requirement_spec"
+        },
+        "schema_version": {
+          "const": "1"
+        },
+        "context": {
+          "const": "synthetic_reference"
+        },
+        "tenant_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "project_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "operational_approval": {
+          "const": false
+        },
+        "id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "version": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "source_ref": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/source_ref"
+        },
+        "source_category": {
+          "enum": [
+            "statute",
+            "administrative_rule",
+            "institutional_rule",
+            "contract",
+            "guideline",
+            "example"
+          ]
+        },
+        "source_verification": {
+          "enum": [
+            "confirmed",
+            "partial",
+            "pending"
+          ]
+        },
+        "normativity": {
+          "enum": [
+            "mandatory",
+            "recommended",
+            "example",
+            "undetermined"
+          ]
+        },
+        "basis_kind": {
+          "enum": [
+            "statutory_obligation",
+            "institutional_policy",
+            "example_policy",
+            "unverified_requirement"
+          ]
+        },
+        "applicability_expr": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/expression"
+        },
+        "stages": {
+          "type": "array",
+          "items": {
+            "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/stage"
+          },
+          "minItems": 1,
+          "maxItems": 7,
+          "uniqueItems": true
+        },
+        "required_artifacts": {
+          "type": "array",
+          "items": {
+            "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": true
+        },
+        "check_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+          },
+          "minItems": 0,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "review_required": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "kind",
+        "schema_version",
+        "context",
+        "tenant_id",
+        "project_id",
+        "operational_approval",
+        "id",
+        "version",
+        "source_ref",
+        "source_category",
+        "source_verification",
+        "normativity",
+        "basis_kind",
+        "applicability_expr",
+        "stages",
+        "required_artifacts",
+        "check_refs",
+        "review_required"
+      ],
+      "additionalProperties": false
+    },
+    "rule_pack_manifest": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "rule_pack_manifest"
+        },
+        "schema_version": {
+          "const": "1"
+        },
+        "context": {
+          "const": "synthetic_reference"
+        },
+        "tenant_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "project_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "operational_approval": {
+          "const": false
+        },
+        "pack_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "version": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "domain": {
+          "enum": [
+            "delivery_trace",
+            "privacy_logging",
+            "accessibility",
+            "quality",
+            "interoperability",
+            "operations",
+            "general"
+          ]
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/source_ref"
+          },
+          "minItems": 1,
+          "maxItems": 100,
+          "uniqueItems": true
+        },
+        "requirement_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/entity_ref"
+          },
+          "minItems": 1,
+          "maxItems": 1000,
+          "uniqueItems": true
+        },
+        "task_templates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+              },
+              "action_type": {
+                "enum": [
+                  "provide_fact",
+                  "create_artifact",
+                  "link_trace",
+                  "run_check",
+                  "review",
+                  "remediate"
+                ]
+              },
+              "owner_role": {
+                "enum": [
+                  "author",
+                  "approver",
+                  "operator",
+                  "auditor"
+                ]
+              },
+              "artifact_kinds": {
+                "type": "array",
+                "items": {
+                  "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+                },
+                "minItems": 0,
+                "maxItems": 20,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "id",
+              "action_type",
+              "owner_role",
+              "artifact_kinds"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "check_specs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+              },
+              "adapter_id": {
+                "enum": [
+                  "delivery.trace_integrity",
+                  "delivery.artifact_structure",
+                  "delivery.result_binding",
+                  "privacy.logging"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "adapter_id"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 64
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/entity_ref"
+          },
+          "minItems": 0,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "not_before": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+        },
+        "expires_at": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+        }
+      },
+      "required": [
+        "kind",
+        "schema_version",
+        "context",
+        "tenant_id",
+        "project_id",
+        "operational_approval",
+        "pack_id",
+        "version",
+        "domain",
+        "source_refs",
+        "requirement_refs",
+        "task_templates",
+        "check_specs",
+        "dependencies",
+        "not_before",
+        "expires_at"
+      ],
+      "additionalProperties": false
+    },
+    "pack_approval": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "pack_approval"
+        },
+        "schema_version": {
+          "const": "1"
+        },
+        "context": {
+          "const": "synthetic_reference"
+        },
+        "tenant_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "project_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "operational_approval": {
+          "const": false
+        },
+        "id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "version": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "pack_ref": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/entity_ref"
+        },
+        "manifest_digest": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+        },
+        "author_ref": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "approver_ref": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "decision": {
+          "enum": [
+            "approved",
+            "rejected"
+          ]
+        },
+        "not_before": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+        },
+        "expires_at": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+        }
+      },
+      "required": [
+        "kind",
+        "schema_version",
+        "context",
+        "tenant_id",
+        "project_id",
+        "operational_approval",
+        "id",
+        "version",
+        "pack_ref",
+        "manifest_digest",
+        "author_ref",
+        "approver_ref",
+        "decision",
+        "not_before",
+        "expires_at"
+      ],
+      "additionalProperties": false
+    },
+    "project_pack_lock": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "project_pack_lock"
+        },
+        "schema_version": {
+          "const": "1"
+        },
+        "context": {
+          "const": "synthetic_reference"
+        },
+        "tenant_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "project_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "operational_approval": {
+          "const": false
+        },
+        "id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "version": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "profile_ref": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/entity_ref"
+        },
+        "profile_digest": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+        },
+        "pack_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/entity_ref"
+          },
+          "minItems": 1,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "policy_bundle_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/entity_ref"
+          },
+          "minItems": 0,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "selection_review_ref": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "not_before": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+        },
+        "expires_at": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+        }
+      },
+      "required": [
+        "kind",
+        "schema_version",
+        "context",
+        "tenant_id",
+        "project_id",
+        "operational_approval",
+        "id",
+        "version",
+        "profile_ref",
+        "profile_digest",
+        "pack_refs",
+        "policy_bundle_refs",
+        "selection_review_ref",
+        "sequence",
+        "not_before",
+        "expires_at"
+      ],
+      "additionalProperties": false
+    },
+    "applicability_decision": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "applicability_decision"
+        },
+        "schema_version": {
+          "const": "1"
+        },
+        "context": {
+          "const": "synthetic_reference"
+        },
+        "tenant_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "project_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "operational_approval": {
+          "const": false
+        },
+        "id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "version": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "requirement_ref": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/entity_ref"
+        },
+        "profile_digest": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+        },
+        "pack_digest": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+        },
+        "result": {
+          "enum": [
+            "applicable",
+            "not_applicable",
+            "pending"
+          ]
+        },
+        "reason_codes": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/reason_codes"
+        },
+        "fact_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+          },
+          "minItems": 0,
+          "maxItems": 256,
+          "uniqueItems": true
+        },
+        "reviewer_ref": {
+          "anyOf": [
+            {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "review_ref": {
+          "anyOf": [
+            {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "schema_version",
+        "context",
+        "tenant_id",
+        "project_id",
+        "operational_approval",
+        "id",
+        "version",
+        "requirement_ref",
+        "profile_digest",
+        "pack_digest",
+        "result",
+        "reason_codes",
+        "fact_refs",
+        "reviewer_ref",
+        "review_ref"
+      ],
+      "additionalProperties": false
+    },
+    "artifact_ref": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "artifact_ref"
+        },
+        "schema_version": {
+          "const": "1"
+        },
+        "context": {
+          "const": "synthetic_reference"
+        },
+        "tenant_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "project_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "operational_approval": {
+          "const": false
+        },
+        "id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "version": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "artifact_kind": {
+          "enum": [
+            "requirements",
+            "design",
+            "test_plan",
+            "test_result",
+            "review_record",
+            "other"
+          ]
+        },
+        "relative_path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*//)(?!.*(?:^|/)\\.(?:/|$))[^\\x00-\\x1f\\x7f]+$"
+        },
+        "content_digest": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+        }
+      },
+      "required": [
+        "kind",
+        "schema_version",
+        "context",
+        "tenant_id",
+        "project_id",
+        "operational_approval",
+        "id",
+        "version",
+        "artifact_kind",
+        "relative_path",
+        "content_digest"
+      ],
+      "additionalProperties": false
+    },
+    "trace_link": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "trace_link"
+        },
+        "schema_version": {
+          "const": "1"
+        },
+        "context": {
+          "const": "synthetic_reference"
+        },
+        "tenant_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "project_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "operational_approval": {
+          "const": false
+        },
+        "id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "version": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "from_ref": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/entity_ref"
+        },
+        "to_ref": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/entity_ref"
+        },
+        "relation": {
+          "enum": [
+            "implements",
+            "verifies",
+            "reports",
+            "reviews",
+            "depends_on"
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "schema_version",
+        "context",
+        "tenant_id",
+        "project_id",
+        "operational_approval",
+        "id",
+        "version",
+        "from_ref",
+        "to_ref",
+        "relation"
+      ],
+      "additionalProperties": false
+    },
+    "rule_pack_action": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1"
+            },
+            "context": {
+              "const": "synthetic_reference"
+            },
+            "tenant_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "project_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "operational_approval": {
+              "const": false
+            },
+            "actor_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "event_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "created_at": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+            },
+            "kind": {
+              "const": "rule_pack_action"
+            },
+            "pack_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "version": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "pack_digest": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+            },
+            "expected_sequence": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "action": {
+              "const": "draft"
+            },
+            "manifest": {
+              "$ref": "#/definitions/rule_pack_manifest"
+            },
+            "requirements": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/requirement_spec"
+              },
+              "maxItems": 1000,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "schema_version",
+            "context",
+            "tenant_id",
+            "project_id",
+            "operational_approval",
+            "actor_id",
+            "event_id",
+            "created_at",
+            "kind",
+            "pack_id",
+            "version",
+            "pack_digest",
+            "expected_sequence",
+            "action",
+            "manifest",
+            "requirements"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1"
+            },
+            "context": {
+              "const": "synthetic_reference"
+            },
+            "tenant_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "project_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "operational_approval": {
+              "const": false
+            },
+            "actor_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "event_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "created_at": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+            },
+            "kind": {
+              "const": "rule_pack_action"
+            },
+            "pack_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "version": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "pack_digest": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+            },
+            "expected_sequence": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "action": {
+              "const": "submit"
+            }
+          },
+          "required": [
+            "schema_version",
+            "context",
+            "tenant_id",
+            "project_id",
+            "operational_approval",
+            "actor_id",
+            "event_id",
+            "created_at",
+            "kind",
+            "pack_id",
+            "version",
+            "pack_digest",
+            "expected_sequence",
+            "action"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1"
+            },
+            "context": {
+              "const": "synthetic_reference"
+            },
+            "tenant_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "project_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "operational_approval": {
+              "const": false
+            },
+            "actor_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "event_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "created_at": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+            },
+            "kind": {
+              "const": "rule_pack_action"
+            },
+            "pack_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "version": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "pack_digest": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+            },
+            "expected_sequence": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "action": {
+              "const": "approve"
+            },
+            "reason_ref": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "not_before": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+            },
+            "expires_at": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+            }
+          },
+          "required": [
+            "schema_version",
+            "context",
+            "tenant_id",
+            "project_id",
+            "operational_approval",
+            "actor_id",
+            "event_id",
+            "created_at",
+            "kind",
+            "pack_id",
+            "version",
+            "pack_digest",
+            "expected_sequence",
+            "action",
+            "reason_ref",
+            "not_before",
+            "expires_at"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1"
+            },
+            "context": {
+              "const": "synthetic_reference"
+            },
+            "tenant_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "project_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "operational_approval": {
+              "const": false
+            },
+            "actor_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "event_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "created_at": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+            },
+            "kind": {
+              "const": "rule_pack_action"
+            },
+            "pack_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "version": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "pack_digest": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+            },
+            "expected_sequence": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "action": {
+              "const": "reject"
+            },
+            "reason_ref": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            }
+          },
+          "required": [
+            "schema_version",
+            "context",
+            "tenant_id",
+            "project_id",
+            "operational_approval",
+            "actor_id",
+            "event_id",
+            "created_at",
+            "kind",
+            "pack_id",
+            "version",
+            "pack_digest",
+            "expected_sequence",
+            "action",
+            "reason_ref"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1"
+            },
+            "context": {
+              "const": "synthetic_reference"
+            },
+            "tenant_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "project_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "operational_approval": {
+              "const": false
+            },
+            "actor_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "event_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "created_at": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+            },
+            "kind": {
+              "const": "rule_pack_action"
+            },
+            "pack_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "version": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "pack_digest": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+            },
+            "expected_sequence": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "action": {
+              "const": "retire"
+            },
+            "reason_ref": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            }
+          },
+          "required": [
+            "schema_version",
+            "context",
+            "tenant_id",
+            "project_id",
+            "operational_approval",
+            "actor_id",
+            "event_id",
+            "created_at",
+            "kind",
+            "pack_id",
+            "version",
+            "pack_digest",
+            "expected_sequence",
+            "action",
+            "reason_ref"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "1"
+            },
+            "context": {
+              "const": "synthetic_reference"
+            },
+            "tenant_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "project_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "operational_approval": {
+              "const": false
+            },
+            "actor_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "event_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "created_at": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+            },
+            "kind": {
+              "const": "rule_pack_action"
+            },
+            "pack_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "version": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "pack_digest": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+            },
+            "expected_sequence": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "action": {
+              "const": "revoke"
+            },
+            "reason_ref": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            }
+          },
+          "required": [
+            "schema_version",
+            "context",
+            "tenant_id",
+            "project_id",
+            "operational_approval",
+            "actor_id",
+            "event_id",
+            "created_at",
+            "kind",
+            "pack_id",
+            "version",
+            "pack_digest",
+            "expected_sequence",
+            "action",
+            "reason_ref"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "rule_pack_release": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "1"
+        },
+        "context": {
+          "const": "synthetic_reference"
+        },
+        "tenant_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "project_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "operational_approval": {
+          "const": false
+        },
+        "actor_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "event_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "created_at": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+        },
+        "kind": {
+          "const": "rule_pack_release"
+        },
+        "expected_sequence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "pack_ref": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/entity_ref"
+        },
+        "pack_digest": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "not_before": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+        },
+        "expires_at": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+        },
+        "author_record": {
+          "type": "object",
+          "properties": {
+            "format": {
+              "const": "govcode-signed-v1"
+            },
+            "key_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "payload": {
+              "type": "object"
+            },
+            "signature": {
+              "type": "string",
+              "minLength": 80,
+              "maxLength": 128
+            }
+          },
+          "required": [
+            "format",
+            "key_id",
+            "payload",
+            "signature"
+          ],
+          "additionalProperties": false
+        },
+        "submit_record": {
+          "type": "object",
+          "properties": {
+            "format": {
+              "const": "govcode-signed-v1"
+            },
+            "key_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "payload": {
+              "type": "object"
+            },
+            "signature": {
+              "type": "string",
+              "minLength": 80,
+              "maxLength": 128
+            }
+          },
+          "required": [
+            "format",
+            "key_id",
+            "payload",
+            "signature"
+          ],
+          "additionalProperties": false
+        },
+        "approval_record": {
+          "type": "object",
+          "properties": {
+            "format": {
+              "const": "govcode-signed-v1"
+            },
+            "key_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "payload": {
+              "type": "object"
+            },
+            "signature": {
+              "type": "string",
+              "minLength": 80,
+              "maxLength": 128
+            }
+          },
+          "required": [
+            "format",
+            "key_id",
+            "payload",
+            "signature"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "schema_version",
+        "context",
+        "tenant_id",
+        "project_id",
+        "operational_approval",
+        "actor_id",
+        "event_id",
+        "created_at",
+        "kind",
+        "expected_sequence",
+        "pack_ref",
+        "pack_digest",
+        "sequence",
+        "not_before",
+        "expires_at",
+        "author_record",
+        "submit_record",
+        "approval_record"
+      ],
+      "additionalProperties": false
+    },
+    "pack_selection_request": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "1"
+        },
+        "context": {
+          "const": "synthetic_reference"
+        },
+        "tenant_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "project_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "operational_approval": {
+          "const": false
+        },
+        "actor_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "event_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "created_at": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+        },
+        "kind": {
+          "const": "pack_selection_request"
+        },
+        "lock": {
+          "$ref": "#/definitions/project_pack_lock"
+        }
+      },
+      "required": [
+        "schema_version",
+        "context",
+        "tenant_id",
+        "project_id",
+        "operational_approval",
+        "actor_id",
+        "event_id",
+        "created_at",
+        "kind",
+        "lock"
+      ],
+      "additionalProperties": false
+    },
+    "pack_selection_review": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "1"
+        },
+        "context": {
+          "const": "synthetic_reference"
+        },
+        "tenant_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "project_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "operational_approval": {
+          "const": false
+        },
+        "actor_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "event_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "created_at": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+        },
+        "kind": {
+          "const": "pack_selection_review"
+        },
+        "request_digest": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+        },
+        "decision": {
+          "enum": [
+            "approve",
+            "reject"
+          ]
+        },
+        "reason_ref": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "not_before": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+        },
+        "expires_at": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+        }
+      },
+      "required": [
+        "schema_version",
+        "context",
+        "tenant_id",
+        "project_id",
+        "operational_approval",
+        "actor_id",
+        "event_id",
+        "created_at",
+        "kind",
+        "request_digest",
+        "decision",
+        "reason_ref",
+        "not_before",
+        "expires_at"
+      ],
+      "additionalProperties": false
+    },
+    "project_pack_lock_release": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "1"
+        },
+        "context": {
+          "const": "synthetic_reference"
+        },
+        "tenant_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "project_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "operational_approval": {
+          "const": false
+        },
+        "actor_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "event_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "created_at": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+        },
+        "kind": {
+          "const": "project_pack_lock_release"
+        },
+        "expected_sequence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "lock": {
+          "$ref": "#/definitions/project_pack_lock"
+        },
+        "selection_record": {
+          "type": "object",
+          "properties": {
+            "format": {
+              "const": "govcode-signed-v1"
+            },
+            "key_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "payload": {
+              "type": "object"
+            },
+            "signature": {
+              "type": "string",
+              "minLength": 80,
+              "maxLength": 128
+            }
+          },
+          "required": [
+            "format",
+            "key_id",
+            "payload",
+            "signature"
+          ],
+          "additionalProperties": false
+        },
+        "review_record": {
+          "type": "object",
+          "properties": {
+            "format": {
+              "const": "govcode-signed-v1"
+            },
+            "key_id": {
+              "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+            },
+            "payload": {
+              "type": "object"
+            },
+            "signature": {
+              "type": "string",
+              "minLength": 80,
+              "maxLength": 128
+            }
+          },
+          "required": [
+            "format",
+            "key_id",
+            "payload",
+            "signature"
+          ],
+          "additionalProperties": false
+        },
+        "pack_releases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "format": {
+                "const": "govcode-signed-v1"
+              },
+              "key_id": {
+                "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+              },
+              "payload": {
+                "type": "object"
+              },
+              "signature": {
+                "type": "string",
+                "minLength": 80,
+                "maxLength": 128
+              }
+            },
+            "required": [
+              "format",
+              "key_id",
+              "payload",
+              "signature"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 64,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schema_version",
+        "context",
+        "tenant_id",
+        "project_id",
+        "operational_approval",
+        "actor_id",
+        "event_id",
+        "created_at",
+        "kind",
+        "expected_sequence",
+        "lock",
+        "selection_record",
+        "review_record",
+        "pack_releases"
+      ],
+      "additionalProperties": false
+    },
+    "applicability_review": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "1"
+        },
+        "context": {
+          "const": "synthetic_reference"
+        },
+        "tenant_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "project_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "operational_approval": {
+          "const": false
+        },
+        "actor_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "event_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "created_at": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+        },
+        "kind": {
+          "const": "applicability_review"
+        },
+        "lock_digest": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+        },
+        "profile_digest": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+        },
+        "requirement_ref": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/entity_ref"
+        },
+        "subject_digest": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+        },
+        "decision": {
+          "enum": [
+            "applicable",
+            "not_applicable",
+            "review_required"
+          ]
+        },
+        "reason_ref": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "not_before": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+        },
+        "expires_at": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+        }
+      },
+      "required": [
+        "schema_version",
+        "context",
+        "tenant_id",
+        "project_id",
+        "operational_approval",
+        "actor_id",
+        "event_id",
+        "created_at",
+        "kind",
+        "lock_digest",
+        "profile_digest",
+        "requirement_ref",
+        "subject_digest",
+        "decision",
+        "reason_ref",
+        "not_before",
+        "expires_at"
+      ],
+      "additionalProperties": false
+    },
+    "rule_pack_revocations": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "1"
+        },
+        "context": {
+          "const": "synthetic_reference"
+        },
+        "tenant_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "project_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "operational_approval": {
+          "const": false
+        },
+        "actor_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "event_id": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+        },
+        "created_at": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+        },
+        "kind": {
+          "const": "rule_pack_revocations"
+        },
+        "expected_sequence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "epoch": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "not_before": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+        },
+        "expires_at": {
+          "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/timestamp"
+        },
+        "key_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/identifier"
+          },
+          "maxItems": 1000,
+          "uniqueItems": true
+        },
+        "pack_digests": {
+          "type": "array",
+          "items": {
+            "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+          },
+          "maxItems": 1000,
+          "uniqueItems": true
+        },
+        "release_digests": {
+          "type": "array",
+          "items": {
+            "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+          },
+          "maxItems": 1000,
+          "uniqueItems": true
+        },
+        "approval_digests": {
+          "type": "array",
+          "items": {
+            "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+          },
+          "maxItems": 1000,
+          "uniqueItems": true
+        },
+        "lock_digests": {
+          "type": "array",
+          "items": {
+            "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+          },
+          "maxItems": 1000,
+          "uniqueItems": true
+        },
+        "review_digests": {
+          "type": "array",
+          "items": {
+            "$ref": "https://govcode-harness.invalid/contracts/project-common-v1.schema.json#/definitions/sha256"
+          },
+          "maxItems": 1000,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schema_version",
+        "context",
+        "tenant_id",
+        "project_id",
+        "operational_approval",
+        "actor_id",
+        "event_id",
+        "created_at",
+        "kind",
+        "expected_sequence",
+        "epoch",
+        "not_before",
+        "expires_at",
+        "key_ids",
+        "pack_digests",
+        "release_digests",
+        "approval_digests",
+        "lock_digests",
+        "review_digests"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,4 +1,87 @@
+# v0.10.0 사전 릴리스 검증
+
+기준일은 2026-10-30 KST다. 버전 0.10.0에서 전체 unittest discovery를 다시 실행했다.
+**439개 통과, 실패·오류·건너뜀 0개, 131.983초**를 확인했다.
+실행 명령은 `.runtime/reference-venv/bin/python -c "from pathlib import Path; exec(Path('.runtime/run-document-suite.py').read_text())"`이며,
+검증 대상은 `unittest.defaultTestLoader.discover('tests', pattern='test_*.py', top_level_dir='.')`의 전체 시험이다.
+
+배포용 wheel을 별도 환경에 설치하고 프로젝트 밖에서 `-I -B`로 기본 로깅 데모, 프로필 데모, 팩·적용성 데모와 문서 생성을 실행했다.
+로깅 deny→allow와 기능 회귀 3종, 프로필 검증 6종, 팩·적용성 검증 7종을 확인했다.
+생성 문서 8개는 AI Doc Ready 0.3.0의 `--fail-on Warning` 구조 검사를 오류·경고·제안 없이 통과했다. 수동 검토 항목은 유지한다.
+소스 배포본의 안내·고정 의존성 목록·예시·시험 fixture 포함과 wheel의 계약 스키마·작성 정책 포함을 확인했다.
+실행 자료·개인 키를 배포물에서 제외했다. [릴리스 범위](releases/v0.10.0.md)를 따른다.
+
+아래는 각 개발 단계 당시의 역사적 검증 기록이다. 당시 미릴리스·미구현 표시는 해당 단계의 상태이며 현재 릴리스 상태를 대신하지 않는다.
+
+---
+
+# AI 친화적 설계 문서 생성 검증
+
+기준일은 2026-10-30 KST다. 범위는 공통 작성 정책·초안 생성·문서와 검토 메모 분리다.
+
+## 회귀 테스트
+
+`.runtime/reference-venv/bin/python -m unittest discover -s tests -p 'test_*.py'`와 같은 전체 discovery를 실행했다.
+실제 실행은 `.runtime/run-document-suite.py`에서 수행하고 `.runtime/document-suite.json`과 로그에 저장했다.
+기존 431개와 신규 8개를 합한 **439개가 통과**했다. 실패·오류·건너뜀은 0개이며 실행 시간은 133.069초다.
+신규 검증은 초안과 검토 메모 분리, 수치·날짜 보존, 입력의 구조 지시 방지, 기존 출력 보존, 잘못된 입력 거부,
+작성 정책 구분, 문서 digest, 심볼릭 링크·중복 JSON 속성 거부를 포함한다.
+
+## 실제 구조 검사
+
+AI Doc Ready 0.3.0을 `.runtime/aidocready`에 고정 설치했다. 설치 시 패키지 스크립트는 실행하지 않았다.
+`aidocready lint .runtime/ai-friendly-design-verified --format json --fail-on Warning --output .runtime/ai-friendly-design-verified-lint.json`을 실행했다.
+Markdown 8개에서 오류·경고·제안과 운영 오류는 모두 0개였다. 모든 입력의 coverage.complete는 true이며 수동 검토 항목은 유지했다.
+첫 검사에서 작성 정책의 두 번호 목록을 연속되지 않은 번호로 인식한 경고를 확인했다.
+순서가 없는 원칙 목록을 불릿으로 수정하고 다시 검사한 결과다.
+
+설치된 패키지를 프로젝트 밖에서 `-I -B`로 실행해 같은 초안을 생성했다.
+`.runtime/installed-document-kit`의 Markdown 8개도 같은 옵션의 구조 검사를 통과했다.
+초기 review.json의 aidocready_executed=false는 생성 시점의 기록이며, 별도 실행 결과로 자동 변경하지 않았다.
+
+구조 검사 결과는 사실·수치·의미의 검증이나 행안부 공식 인증이 아니다.
+HWPX 생성·기관 자료 검증·기존 문서 일괄 변환·R7-E/F 충족 평가는 수행하지 않았다.
+[실행 안내](DOCUMENT_GENERATION.md)와 [작성 정책](../govcode_harness/document_assets/DOCUMENT_WRITING_POLICY.md)을 따른다.
+
+---
+
 # v0.9 랄프 참조 구현 최종 검증
+
+## R7-C/D 개발 구현 검증 — 2026-10-29
+
+- 실제 전체 실행: 기존 372개 + 신규 59개 = **431개 통과**, 실패 0·오류 0·건너뜀 0, 93.246초.
+- 기존 372개 시험의 소스와 fixture는 이전 R7-A/B 검증 manifest와 같은 바이트임을 확인했다.
+- 전체 실행은 unittest discover의 동일 발견 집합을 기존·신규 모듈로 나눠 집계했다. 원본은 `.runtime/r7-cd-full.log`·`.json`에 보존한다.
+- 신규 집중 시험: `tests.test_rule_pack`, `tests.test_applicability`, `tests.test_rule_pack_cli`의 59개. 관련 R7-A/B 52개를 합친 집중 실행 111개도 통과했다.
+- 발행: 실제 작성·제출·독립 승인·운영자 서명, 불변 버전, 만료·역할·범위·내용 결합·검토·최소 순번 확인.
+- 잠금: 현재 승인 프로필과 전체 의존 팩을 고정하고 누락·순환·충돌·다른 내용의 요구·만료·철회를 거부. 동일 요구는 한 번 집계.
+- 철회: 키·팩·승인·발행·잠금·검토 digest, 누적 epoch와 보호된 기대 digest, 1시간 참조 신선도 정책 검증. 가짜 높은 epoch와 과거 목록의 재사용을 거부.
+- 적용성: typed eq/in/all/any/not, false와 0 구분, 미입력·미확정·not_applicable 주장의 pending 유지, 독립 제외 검토·비예시 근거의 별도 검토, 현재 대상과 다른 검토·중복 event 거부.
+- CLI: 규정 팩 정적 검증·실제 서명 데모·원래 증거로 적용성 재판단, 검토 필요 3·검증 오류 4. 적용성 완료는 gate allow가 아님.
+- 설치본: 프로젝트 폴더 밖 `-I -B -m govcode_harness project pack-demo`에서 확인 항목 7개 모두 true. 적용/제외/검토 필요가 1/0/2 → 1/1/1 → 2/1/0으로 전이.
+- 설치본 결과는 operational_approval=false, requirements_evaluated=false를 유지했다. 실제 검사 어댑터는 실행하지 않았다.
+- 정적 문서·기존 계약 검사와 새 예시 팩의 내용·소스 digest 검증은 별도로 수행했다.
+
+실행과 신뢰 기준점은 [R7-C/D 실행 안내](RULE_PACK_APPLICABILITY_RUNBOOK.md), 결정 근거는 [ADR-0014](adr/0014-rule-pack-lock-applicability.md)를 따른다. R7-E 이후의 산출물 검사·충족 평가·단계 게이트·화면은 미구현이며 새 릴리스나 기관 운영 승인을 수행하지 않았다.
+
+
+## R7-A/B 개발 구현 검증 — 2026-10-29
+
+- 실제 전체 실행: 기존 320개 + 신규 52개 = **372개 통과**, 실패 0·오류 0·건너뜀 0, 84.070초.
+- 명령: `.runtime/reference-venv/bin/python -m unittest discover -s tests -p 'test_*.py' -q`와 같은 발견 집합을 집계 실행했다. 기존 320개 모듈은 변경하지 않았다.
+- 신규 집중 실행: `tests.test_project_contracts`, `tests.test_project_profile`, `tests.test_project_cli`의 52개 통과.
+- 프로필: 불변 개정·부모 digest·expected_revision 충돌·독립 actor 승인·자기 승인 거부·초안의 기존 승인 보존·만료/철회 후 자동 복귀 금지·시간 역행·기준점 롤백·동시 개정 검증.
+- 정보 상태: unknown·missing·not_applicable·known false 구분. 프로필 승인이 정보 미확정이나 요구 적용·충족을 없애지 않음을 확인.
+- 공통 계약: 4개 Draft-07 자원과 15종 합성 예시, ID·버전·digest·범위·프로필/검토 대상 결합. 서명·법적 적용 판단과 형태 검증을 구분.
+- 일반 패키지 재설치 후 프로젝트 밖 `-I -B` 실행으로 스키마 4개가 소스와 같은 바이트임과 참조 집합 검증을 확인.
+- 설치본 `project profile-demo`: 실제 서명과 두 개정, 확인 항목 6개 모두 true, operational_approval=false·requirements_evaluated=false.
+- 시스템 Python의 기존 기본 demo도 deny→수정→allow와 응답·감사 보존을 확인.
+- 정적 검사: 기존 엔티티 예시 28개·잘못된 계약 8개 거부·로컬 링크 116개 통과. `git diff --check` 통과.
+
+최초 새 환경에서는 선택 도구의 작업 폴더·설치 부재로 기존 시험 일부가 실패하고 3개가 건너뛰어졌다. 고정 소스 SHA-256과 의존성 해시 잠금으로 오철칙 전용 환경을 복원한 뒤 전체를 다시 실행했다. 기존 시험이나 차단 기준은 완화하지 않았다.
+원본 초기 기록은 `.runtime/r7-ab-initial.log`·`.json`, 최종 기록은 `.runtime/r7-ab-full.log`·`.json`에 보존한다.
+[실행 안내](PROJECT_PROFILE_RUNBOOK.md)와 [ADR-0013](adr/0013-project-profile-contracts.md)을 따른다. R7-C~I는 미구현이며 새 릴리스·기관 운영 승인을 수행하지 않았다.
+
 
 최종 실행 코드의 전체 회귀: **320개 통과**, 실패·건너뜀0,83.467초. 시작 기준선175개를 보존했다.
 실제 참조 CLI는 exit0, 위험본deny·수정본allow·OS격리5검사·관리5검사·보관복구4검사가 모두 통과했다.

@@ -1,0 +1,41 @@
+[
+  {
+    "schema_version": "1",
+    "context": "synthetic_reference",
+    "tenant_id": "TENANT-REFERENCE",
+    "project_id": "PROJECT-DELIVERY-REFERENCE",
+    "operational_approval": false,
+    "kind": "requirement_spec",
+    "id": "REQ-PRIVACY-LOG",
+    "version": "0.1.0",
+    "source_ref": {
+      "id": "SRC-EXAMPLE",
+      "version": "1",
+      "category": "example",
+      "verification": "confirmed",
+      "digest": "dc608786dc91991a174249a73ed6a4b271373cdb1035dbecd967b353f085205a"
+    },
+    "source_category": "example",
+    "source_verification": "confirmed",
+    "normativity": "example",
+    "basis_kind": "example_policy",
+    "applicability_expr": {
+      "op": "eq",
+      "fact": "processes_personal_data",
+      "value": {
+        "value_type": "boolean",
+        "value": true
+      }
+    },
+    "stages": [
+      "acceptance"
+    ],
+    "required_artifacts": [
+      "ART-LOG-RECHECK"
+    ],
+    "check_refs": [
+      "CHECK-LOG"
+    ],
+    "review_required": true
+  }
+]

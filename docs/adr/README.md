@@ -17,3 +17,9 @@
 | [0011](0011-limited-model-repair.md) | 제한된 모델 제안·독립 격리 검증 |
 
 - [0012 공공 프로젝트의 규정 충족 안내와 첫 사례 구분](0012-project-compliance-purpose.md)
+
+- [0013 프로필 불변 버전·독립 승인·설치 가능한 계약](0013-project-profile-contracts.md)
+
+- [0014 규정 팩 발행·잠금·적용성과 철회 기준점](0014-rule-pack-lock-applicability.md)
+
+- [0015 AI 친화적 설계 문서 초안과 수동 검토 경계](0015-ai-friendly-document-drafts.md)

@@ -1,0 +1,80 @@
+[
+  {
+    "schema_version": "1",
+    "context": "synthetic_reference",
+    "tenant_id": "TENANT-REFERENCE",
+    "project_id": "PROJECT-DELIVERY-REFERENCE",
+    "operational_approval": false,
+    "kind": "requirement_spec",
+    "id": "REQ-DEL-WEB",
+    "version": "0.1.0",
+    "source_ref": {
+      "id": "SRC-EXAMPLE",
+      "version": "1",
+      "category": "example",
+      "verification": "confirmed",
+      "digest": "dc608786dc91991a174249a73ed6a4b271373cdb1035dbecd967b353f085205a"
+    },
+    "source_category": "example",
+    "source_verification": "confirmed",
+    "normativity": "example",
+    "basis_kind": "example_policy",
+    "applicability_expr": {
+      "op": "eq",
+      "fact": "public_web",
+      "value": {
+        "value_type": "boolean",
+        "value": true
+      }
+    },
+    "stages": [
+      "acceptance"
+    ],
+    "required_artifacts": [
+      "ART-TRACE"
+    ],
+    "check_refs": [
+      "CHECK-TRACE"
+    ],
+    "review_required": true
+  },
+  {
+    "schema_version": "1",
+    "context": "synthetic_reference",
+    "tenant_id": "TENANT-REFERENCE",
+    "project_id": "PROJECT-DELIVERY-REFERENCE",
+    "operational_approval": false,
+    "kind": "requirement_spec",
+    "id": "REQ-DEL-CONTRACT",
+    "version": "0.1.0",
+    "source_ref": {
+      "id": "SRC-EXAMPLE",
+      "version": "1",
+      "category": "example",
+      "verification": "confirmed",
+      "digest": "dc608786dc91991a174249a73ed6a4b271373cdb1035dbecd967b353f085205a"
+    },
+    "source_category": "example",
+    "source_verification": "confirmed",
+    "normativity": "example",
+    "basis_kind": "example_policy",
+    "applicability_expr": {
+      "op": "eq",
+      "fact": "procurement_type",
+      "value": {
+        "value_type": "string",
+        "value": "synthetic_fixed_scope"
+      }
+    },
+    "stages": [
+      "acceptance"
+    ],
+    "required_artifacts": [
+      "ART-TRACE"
+    ],
+    "check_refs": [
+      "CHECK-TRACE"
+    ],
+    "review_required": true
+  }
+]

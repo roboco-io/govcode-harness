@@ -1,0 +1,45 @@
+{
+  "schema_version": "1",
+  "context": "synthetic_reference",
+  "tenant_id": "TENANT-REFERENCE",
+  "project_id": "PROJECT-DELIVERY-REFERENCE",
+  "operational_approval": false,
+  "kind": "rule_pack_manifest",
+  "pack_id": "PACK-PRIVACY-LOG",
+  "version": "0.1.0",
+  "domain": "privacy_logging",
+  "source_refs": [
+    {
+      "id": "SRC-EXAMPLE",
+      "version": "1",
+      "category": "example",
+      "verification": "confirmed",
+      "digest": "dc608786dc91991a174249a73ed6a4b271373cdb1035dbecd967b353f085205a"
+    }
+  ],
+  "requirement_refs": [
+    {
+      "kind": "requirement_spec",
+      "id": "REQ-PRIVACY-LOG",
+      "version": "0.1.0",
+      "digest": "1f4d997fafde99cc0e0713df00b4f148c4ba10cb70e3364680a155957ed1b4aa"
+    }
+  ],
+  "task_templates": [],
+  "check_specs": [
+    {
+      "id": "CHECK-LOG",
+      "adapter_id": "privacy.logging"
+    }
+  ],
+  "dependencies": [
+    {
+      "kind": "rule_pack_manifest",
+      "id": "PACK-DELIVERY-TRACE",
+      "version": "0.1.0",
+      "digest": "7e86af7b06ed9f842fc05a983c2a98c68c782cd6d3fd16c02b70900bd5ff5935"
+    }
+  ],
+  "not_before": "2026-10-29T00:00:00Z",
+  "expires_at": "2026-11-29T00:00:00Z"
+}

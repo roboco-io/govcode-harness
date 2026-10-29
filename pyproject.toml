@@ -22,6 +22,6 @@ where = ["."]
 include = ["govcode_harness*", "policies"]
 
 [tool.setuptools.package-data]
-govcode_harness = ["ui/*.html", "ui/*.css", "ui/*.js"]
+govcode_harness = ["ui/*.html", "ui/*.css", "ui/*.js", "contracts/*.json", "document_assets/*.md"]
 
 policies = ["local-demo/*.json"]
