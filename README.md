@@ -3,6 +3,8 @@
 **공공 프로젝트의 법령·규칙·가이드라인을 실행 가능한 요구와 작업으로 연결하는 규정 준수 하네스.**
 적용 요구 파악부터 작업 안내, 자동 검사·수정 지원, 담당자 검토·승인·증적까지 충족 과정을 안내하는 것이 제품의 목적이다.
 
+현재 프로젝트는 **파일럿 단계**입니다. 개인·기관·기업은 **Apache-2.0 조건에 따라 라이선스 비용이나 로열티 없이 사용·수정·재배포**할 수 있습니다. 상업적 이용도 가능합니다. 설치·인프라·운영 비용은 사용 환경에 따라 발생할 수 있습니다.
+
 현재 **v0.9.0 로컬 참조 구현**은 첫 Vertical Slice인 민원 API 개인정보 로깅으로 이 흐름의 공통 기반을 검증했다. 다른 규정 분야의 자동 충족 기능은 후속 설계·구현 범위다.
 실제 기관 승인·법령 적용 확정·원격 CI 배포·실데이터 파일럿 완료를 뜻하지 않는다.
 
@@ -69,9 +71,17 @@ python3 -m govcode_harness demo --output .runtime/first-slice
 원래 스캐폴드 JSON은 정적 예시이며 실제 실행은 지정한 새 폴더에 생성한다.
 공개 코드와 안내 사이트는 [공개 안내](docs/PUBLICATION.md)를 따른다. 실제 기관 운영 배포와 업무 CI 적용은 별도다.
 
+## 피드백과 기여
+
+사용 경험과 문서·코드 개선 제안을 환영합니다. [피드백·기여 안내](CONTRIBUTING.md)에서 참여 방법과 검증 절차를 확인하세요.
+
+- [파일럿 피드백](https://github.com/roboco-io/govcode-harness/issues/new?template=01-feedback.yml)
+- [버그 보고](https://github.com/roboco-io/govcode-harness/issues/new?template=02-bug.yml)
+- [기능·문서 개선 제안](https://github.com/roboco-io/govcode-harness/issues/new?template=03-improvement.yml)
+
 ## 라이선스
 
-본 프로젝트는 [Apache License 2.0](LICENSE)으로 제공한다. [NOTICE](NOTICE)의 저작권·제3자 표시를 유지한다.
+본 프로젝트는 [Apache License 2.0](LICENSE)에 따라 아무 대가 없이 사용할 수 있다. 라이선스 비용과 로열티를 요구하지 않으며, 상업적 이용·수정·재배포를 허용한다. 재배포 시 라이선스 사본, 관련 저작권·[NOTICE](NOTICE) 표시, 수정 사실 표시 등 조건을 준수한다. 라이선스의 무보증 조건이 적용된다.
 선택적 오철칙 연동의 [기존 MIT 라이선스](integrations/iron-laws/LICENSE)는 그대로 적용된다.
 별도 [가이드·브로슈어](https://github.com/roboco-io/govcode-harness-guide)는 CC BY 4.0이다.
 

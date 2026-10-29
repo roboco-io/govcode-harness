@@ -1,0 +1,49 @@
+---
+name: 버그 보고
+description: 실행 오류, 화면 문제, 잘못된 안내를 재현 정보와 함께 알려 주세요.
+title: "[버그] "
+body:
+- type: markdown
+  attributes:
+    value: 파일럿 단계의 프로젝트입니다. 합성 예시만 제출하고 개인정보·기관 내부 자료·원본 로그·토큰·키는 제외해 주세요. 악용 가능한
+      취약점 세부 내용은 공개 이슈에 올리지 마세요.
+- type: input
+  id: version
+  attributes:
+    label: 버전 또는 commit / 페이지 URL
+  validations:
+    required: true
+- type: input
+  id: environment
+  attributes:
+    label: 실행·열람 환경
+    description: OS, Python 또는 브라우저 버전을 적어 주세요.
+  validations:
+    required: true
+- type: textarea
+  id: steps
+  attributes:
+    label: 재현 절차
+    description: 합성 입력과 실행 명령 또는 클릭 순서를 적어 주세요.
+  validations:
+    required: true
+- type: textarea
+  id: expected
+  attributes:
+    label: 기대한 결과
+  validations:
+    required: true
+- type: textarea
+  id: actual
+  attributes:
+    label: 실제 결과
+    description: 오류 메시지는 필요한 최소 부분만 가려서 적어 주세요. 원본 로그를 첨부하지 마세요.
+  validations:
+    required: true
+- type: checkboxes
+  id: public-information
+  attributes:
+    label: 공개 정보 확인
+    options:
+    - label: 첨부 자료를 포함해 개인정보·내부 자료·비밀값이 없는지 확인했습니다.
+      required: true

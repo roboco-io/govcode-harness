@@ -1,0 +1,47 @@
+---
+name: 파일럿 피드백
+description: 써 보거나 읽어 본 경험과 개선 의견을 알려 주세요.
+title: "[피드백] "
+body:
+- type: markdown
+  attributes:
+    value: 파일럿 단계의 프로젝트입니다. 합성 예시만 제출하고 개인정보·기관 내부 자료·원본 로그·토큰·키는 제외해 주세요. 악용 가능한
+      취약점 세부 내용은 공개 이슈에 올리지 마세요.
+- type: dropdown
+  id: experience
+  attributes:
+    label: 어떻게 살펴보셨나요?
+    options:
+    - 소개·가이드·브로슈어를 읽음
+    - 합성 데모를 실행함
+    - 제한된 환경에서 검토함
+    - 기타
+  validations:
+    required: true
+- type: textarea
+  id: context
+  attributes:
+    label: 살펴본 내용과 환경
+    description: 문서 URL 또는 버전, 사용 환경과 해 보려던 일을 적어 주세요. 기관 이름은 필요하지 않습니다.
+  validations:
+    required: true
+- type: textarea
+  id: feedback
+  attributes:
+    label: 도움이 된 점과 막힌 점
+    description: 하나만 적어도 좋습니다.
+  validations:
+    required: true
+- type: textarea
+  id: next
+  attributes:
+    label: 다음에 필요한 것
+  validations:
+    required: false
+- type: checkboxes
+  id: public-information
+  attributes:
+    label: 공개 정보 확인
+    options:
+    - label: 첨부 자료를 포함해 개인정보·내부 자료·비밀값이 없는지 확인했습니다.
+      required: true

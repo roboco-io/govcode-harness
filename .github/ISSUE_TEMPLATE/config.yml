@@ -1,0 +1,9 @@
+---
+blank_issues_enabled: false
+contact_links:
+- name: 피드백·기여 안내
+  url: https://github.com/roboco-io/govcode-harness/blob/main/CONTRIBUTING.md
+  about: 의견 작성, PR 준비, 검증 방법과 라이선스를 확인하세요.
+- name: 가이드·브로슈어 이슈
+  url: https://github.com/roboco-io/govcode-harness-guide/issues/new/choose
+  about: 관련 저장소에서 알맞은 양식으로 남겨 주세요.
