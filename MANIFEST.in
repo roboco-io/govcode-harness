@@ -1,6 +1,6 @@
 include AGENTS.md CONTRIBUTING.md INTENT.md Makefile
 include requirements*.in requirements*.lock requirements-dev.txt
-recursive-include docs *.md
+recursive-include docs *.md *.png
 recursive-include scripts *.py
 recursive-include tests *.py *.json *.js *.java *.go *.ts *.md *.txt
 recursive-include examples *.py *.md *.json
