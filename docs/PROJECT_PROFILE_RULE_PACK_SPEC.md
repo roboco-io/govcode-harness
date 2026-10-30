@@ -1,6 +1,6 @@
 # R7 프로젝트 프로필·규정 팩 상세 명세 초안
 
-기준일: 2026-10-29 / 상태: v0.10.0의 R7-A~D 로컬 참조 구현·R7-E~I 설계
+기준일: 2026-10-29 / 상태: v0.11.0의 R7-A~I 로컬 참조 구현·검증
 [구현 계획](plans/2026-10-29-project-profile-rule-packs.review.md)과 함께 검토한다.
 사용자 선택은 사업 산출물·요구사항 추적이다. [제품 목적](PRODUCT_DIRECTION.md)을 유지하며 개인정보 로깅을 첫 사례로 연결한다.
 
@@ -164,7 +164,7 @@ ReviewDecision은 이 subject_digest에 결합한다. 최종 evaluation_digest�
 
 ## 8. 제안 파일·명령 경계
 
-R7-A~D와 project validate-profile·profile-demo·validate-pack·pack-demo·assess-applicability는 구현했다. 나머지 파일과 명령은 구현 예정 인터페이스다. [실행 안내](PROJECT_PROFILE_RUNBOOK.md)를 따른다.
+R7-A~D와 기존 프로젝트 명령에 더해, 이후 개발에서 R7-E와 inspect-artifacts·artifact-demo를 구현했다. [산출물 실행 안내](ARTIFACT_TRACE_RUNBOOK.md)를 따른다. R7-F~I의 실제 명령과 계약은 [전체 실행 안내](PROJECT_REFERENCE_RUNBOOK.md)를 따른다. 아래 초기 제안 경계는 역사적 설계로 유지한다. [실행 안내](PROJECT_PROFILE_RUNBOOK.md)를 따른다.
 
 | 단위 | 제안 파일 | 집중 검증 |
 | --- | --- | --- |
@@ -172,7 +172,7 @@ R7-A~D와 project validate-profile·profile-demo·validate-pack·pack-demo·asse
 | R7-B | govcode_harness/project_profile.py; tests/test_project_profile.py | 개정·승인·미확정·자기 승인·다른 프로젝트 |
 | R7-C | govcode_harness/rule_pack.py; rule_packs/delivery-trace/; rule_packs/privacy-logging/; tests/test_rule_pack.py | 발행·서명·의존성·충돌·철회·만료·역행 |
 | R7-D | govcode_harness/applicability.py; tests/test_applicability.py | 참·거짓·미확정, 제외 승인, unknown의 not·all·any |
-| R7-E | govcode_harness/artifact_snapshot.py, delivery_trace.py; tests/test_delivery_trace.py | 같은 바이트·경로·구조·추적·신뢰한 결과 결합 |
+| R7-E | govcode_harness/project/artifact_snapshot.py, delivery_trace.py; tests/test_delivery_trace.py | 같은 바이트·경로·구조·추적·신뢰한 결과 결합 |
 | R7-F | govcode_harness/project_assessment.py, work_items.py, document_proposal.py; tests/test_project_assessment.py | 분모·상태·미검증·기한·승인·수정 범위·무효화 |
 | R7-G | govcode_harness/project_cli.py, project_gate.py; control_plane.py·ui의 제한 확장 | CLI·역할·화면·AND 게이트·구형 호환 |
 | R7-H | govcode_harness/project_evidence.py; tests/test_project_evidence.py | 새 기록 투영·같은 바이트·부모·서명·권한·보관·복구 |
@@ -232,3 +232,16 @@ API는 /v1/projects 하위의 profiles·pack-locks·work-items·evaluations를 �
 현재 `project document-kit`은 공통 형식의 초안과 별도 검토 메모를 생성한다. [실행 안내](DOCUMENT_GENERATION.md)를 따른다.
 R7-F의 문서 제안은 같은 정책과 원문 대조 절차를 사용해야 한다. 구조 검사 누락·미지원·수동 검토를 통과로 바꾸지 않는다.
 작성 정책은 법적 의무나 충족 평가를 대신하지 않으며, 생성 결과를 기존 평가·승인 증적으로 자동 등록하지 않는다.
+
+## 구조 정리와 R7-E 구현 경계
+
+정본 실행 코드는 [구조 안내](REPOSITORY_STRUCTURE.md)의 project 하위 패키지에 있다. 이전 루트 모듈은 호환 별칭이다.
+산출물 인덱스·보고서·별도 시험 실행 증명의 실제 계약과 CLI는 [실행 안내](ARTIFACT_TRACE_RUNBOOK.md)를 따른다.
+필수 산출물은 요구에서 도달하고 검토 기록까지 이어지는 경로 위에 있어야 한다. 다른 정상 경로로 누락을 대신하지 않는다.
+독립 표본의 R7-E 검증은 R7-I의 합성 요구 8개·두 분야 전체 인수를 완료한 것으로 표시하지 않는다.
+
+## R7-F~I 실제 실행 연결
+
+정본은 project 하위 assessment·work_items·document_proposal·stage_gate·control·evidence·project_reference 모듈이다.
+[평가·수정](PROJECT_ASSESSMENT_RUNBOOK.md), [단계·보관](PROJECT_STAGE_EVIDENCE_RUNBOOK.md), [전체 실행](PROJECT_REFERENCE_RUNBOOK.md)을 따른다.
+초기 계획의 버전·제안 명령을 현재 릴리스 완료로 해석하지 않는다. 로컬 실행과 실제 기관 운영은 [완료 범위](R7_COMPLETION_REPORT.md)에서 구분한다.

@@ -102,7 +102,7 @@ project_contracts.validate는 형태·기본 의미, validate_set은 폐쇄된 �
 구형 policy_bundle·source 참조는 별도 검증을 마친 호출자가 scoped external_refs descriptor로 제공할 수 있다. descriptor 자체는 서명·권한 증명이 아니다.
 계약 예시의 승인·평가·팩은 데이터 형태 예시다. 프로필 외 객체의 실제 서명 승인·발행·적용·평가 엔진을 구현했다는 뜻이 아니다.
 
-R7-C/D의 팩 발행·잠금·적용성은 [실행 안내](RULE_PACK_APPLICABILITY_RUNBOOK.md)를 따르고, R7-E~I의 산출물 검사·수정·충족 현황·단계 게이트·화면은 [후속 계획](plans/2026-10-29-project-profile-rule-packs.review.md)을 따른다.
+R7-C/D의 팩 발행·잠금·적용성은 [실행 안내](RULE_PACK_APPLICABILITY_RUNBOOK.md)를 따르고, R7-E의 이후 개발은 [산출물 실행 안내](ARTIFACT_TRACE_RUNBOOK.md)를 따르고, R7-F~I의 수정·충족 현황·단계 게이트·화면은 [후속 계획](plans/2026-10-29-project-profile-rule-packs.review.md)을 따른다.
 
 ## 7. 재현 가능한 시험 준비
 

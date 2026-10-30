@@ -23,3 +23,7 @@
 - [0014 규정 팩 발행·잠금·적용성과 철회 기준점](0014-rule-pack-lock-applicability.md)
 
 - [0015 AI 친화적 설계 문서 초안과 수동 검토 경계](0015-ai-friendly-document-drafts.md)
+
+- [0016 프로젝트 패키지와 commit 고정 산출물 추적](0016-project-package-and-artifact-traces.md)
+
+- [0017 현재 평가·단계 게이트·새 프로젝트 증적 결합](0017-current-assessment-stage-and-project-evidence.md)

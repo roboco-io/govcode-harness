@@ -152,3 +152,16 @@ fixture 모델과 실제 모델 실행 여부를 구분한다.
 
 기존 네 프로젝트 스키마에 팩 동작·발행·철회·선택 요청·선택 검토·잠금 발행·적용성 검토·보고서의 닫힌 계약을 추가했다. [실행 안내](RULE_PACK_APPLICABILITY_RUNBOOK.md)와 [ADR-0014](adr/0014-rule-pack-lock-applicability.md)를 따른다.
 단순 PackApproval 데이터 형태와 실제 서명한 rule_pack_action의 approve 동작은 구분한다. 적용성 보고서는 선택 잠금본의 분모·검토 대기·이유를 포함하며 충족률이나 법적 인증이 아니다.
+
+## R7-E 개발 입력·출력
+
+project_artifact_index는 기존 requirement_spec·artifact_ref·trace_link를 조합한 닫힌 인덱스다.
+별도 캡처 manifest는 원본 바이트와 파싱한 인덱스의 digest를 구분한다. 원문은 검사 프로세스의 contents에만 둔다.
+artifact_test_attestation은 현재 commit·산출물 manifest·요구·결과 산출물·도구에 결합한 operator 서명이다.
+project_artifact_inspection은 원문 없는 비서명 구조 검사 보고서이며 요구 충족·승인 증적이 아니다. [실행 안내](ARTIFACT_TRACE_RUNBOOK.md)를 따른다.
+
+## R7-F~I 실행 기록
+
+project_assessment_report는 현재 원본·상태·검사/검토 집합을 결합한 평가다. project_stage_candidate는 보관 전 후보이며 통과가 아니다.
+project_stage_receipt는 실제 원본과 저장 증적을 재확인한 현재 단계 결과다. 보관의 project_evidence_metadata·projection·store_event는 기존 archive와 구분한다.
+원문 없는 투영과 비공개 제안·운영 백업을 구분한다. [평가](PROJECT_ASSESSMENT_RUNBOOK.md), [단계·보관](PROJECT_STAGE_EVIDENCE_RUNBOOK.md)을 따른다.
