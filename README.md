@@ -10,7 +10,7 @@ GovCode Harness는 보안 기준을 개발 과정에서 실행할 수 있도록 
 
 공공 프로젝트에 적용되는 법령·규칙·가이드라인을 수행 작업과 검증 근거로 연결하는 것이 목표입니다. 개인정보 로깅을 첫 사례로 시작해, 프로젝트별 요구와 분야별 규정 팩으로 확장을 설계하고 있습니다.
 
-> **현재 파일럿 단계입니다.** 합성 자료로 검증한 v0.10.0 로컬 참조 구현을 체험할 수 있습니다. 프로젝트 코드는 **Apache-2.0 조건에 따라 라이선스 비용이나 로열티 없이** 사용할 수 있습니다. 사용 경험과 문서·코드 기여를 환영합니다.
+> **현재 파일럿 단계입니다.** 합성 자료로 검증한 v0.11.0 로컬 참조 구현을 체험할 수 있습니다. 프로젝트 코드는 **Apache-2.0 조건에 따라 라이선스 비용이나 로열티 없이** 사용할 수 있습니다. 사용 경험과 문서·코드 기여를 환영합니다.
 
 [프로젝트 소개](https://roboco.io/govcode-harness-guide/) · [직접 체험하기](https://roboco.io/govcode-harness-guide/onboarding.html) · [파일럿 피드백 남기기](https://github.com/roboco-io/govcode-harness/issues/new?template=01-feedback.yml) · [기여 안내](CONTRIBUTING.md)
 
@@ -22,7 +22,7 @@ GovCode Harness는 보안 기준을 개발 과정에서 실행할 수 있도록 
 | --- | --- | --- |
 | 개발자 | 탐지 결과에서 다음 행동으로 이어지는 흐름 | 첫 로깅 사례의 위험 탐지·차단·수정·재검사 |
 | 보안·검토 담당자 | 어떤 정책으로 검사하고 누가 승인했는지 판단할 근거 | 합성 역할의 독립 정책 승인과 서명 증적 |
-| 프로젝트 책임자 | 작업과 검토 이력에 대한 가시성 | 관리 화면의 실행·정책·증적 조회. 전체 요구의 충족 현황 안내는 확장 계획 |
+| 프로젝트 책임자 | 작업과 검토 이력에 대한 가시성 | 프로젝트 요구의 현재·후속 단계, 미확정·제외·보완 작업과 증적 조회 |
 
 AI는 설명과 수정안을 제안하고, 정책 엔진과 필수 검사가 결과를 판정합니다. 담당자의 승인과 검토 책임을 개발 흐름 안에 둡니다.
 
@@ -43,7 +43,7 @@ AI는 설명과 수정안을 제안하고, 정책 엔진과 필수 검사가 결
 Python 3.10 이상과 Git이 필요합니다. 처음 시작한다면 라이선스 파일이 포함된 고정 태그를 새 폴더에 받으세요. 데모는 추가 Python 패키지 없이 실행할 수 있습니다.
 
 ```sh
-git clone --branch v0.10.0 --depth 1 https://github.com/roboco-io/govcode-harness.git
+git clone --branch v0.11.0 --depth 1 https://github.com/roboco-io/govcode-harness.git
 cd govcode-harness
 python3 -m govcode_harness demo --output .runtime/first-slice
 ```
@@ -79,11 +79,11 @@ python3 -m govcode_harness demo --output .runtime/first-slice
 .runtime/reference-venv/bin/python -m govcode_harness project pack-demo --output .runtime/my-pack-demo
 ```
 
-서명 팩 발행·의존성 잠금·미확정 정보 검토·독립 제외 승인·재판단·철회 거부를 확인합니다. 적용성 판단 완료는 요구 충족이나 gate allow가 아닙니다. 산출물 검사·충족 평가·새 단계 게이트는 R7-E 이후 범위입니다.
+서명 팩 발행·의존성 잠금·미확정 정보 검토·독립 제외 승인·재판단·철회 거부를 확인합니다. 적용성 판단 완료는 요구 충족이나 gate allow가 아닙니다. v0.10.0 릴리스에는 산출물 검사·충족 평가·새 단계 게이트가 포함되지 않습니다. v0.11.0의 확장은 아래 R7-E와 전체 실행 안내를 따릅니다.
 
 ## 지금 확인할 수 있는 범위
 
-현재 v0.10.0은 **제한된 Python 민원 API 로깅 사례, 공통 정책·승인·증적 기반, 프로젝트 프로필·규정 팩·적용성 판단과 문서 초안 생성**을 제공합니다.
+현재 v0.11.0은 **제한된 Python 개인정보 로깅 검사와 사업 산출물·요구사항 추적, 프로젝트 프로필·규정 팩·충족 평가·독립 검토·현재 단계 게이트·서명 증적 보관 및 복구**를 제공합니다.
 
 | 기능 | 현재 상태 |
 | --- | --- |
@@ -103,7 +103,7 @@ python3 -m govcode_harness demo --output .runtime/first-slice
 
 프로젝트 프로필로 적용 조건을 정리하고, 분야별 규정 팩으로 요구·작업·산출물·검사·담당자 검토·증적을 연결하는 방향입니다. 개인정보·보안에서 시작해 접근성, 개발 품질, 표준·상호운용성, 사업 산출물, 운영·보존 요구로 확장할 계획입니다.
 
-프로필·규정 팩·적용성 판단은 로컬 참조로 구현했습니다. 분야별 산출물 검사와 충족 평가는 후속 설계·구현 범위입니다. 첫 로깅 사례의 결과를 다른 분야의 검증 결과로 일반화하지 않습니다. [제품 목적](INTENT.md), [전체 범위와 후속 설계](docs/PRODUCT_DIRECTION.md), [구현 계획](docs/IMPLEMENTATION_ROADMAP.md)에서 방향을 확인하고 의견을 보태 주세요.
+프로필·규정 팩·적용성 판단은 로컬 참조로 구현했습니다. 사업 산출물의 JSON·Markdown 검사와 충족 평가를 합성 참조로 연결했습니다. 다른 분야와 문서 형식은 후속 범위입니다. 첫 로깅 사례의 결과를 다른 분야의 검증 결과로 일반화하지 않습니다. [제품 목적](INTENT.md), [전체 범위와 후속 설계](docs/PRODUCT_DIRECTION.md), [구현 계획](docs/IMPLEMENTATION_ROADMAP.md)에서 방향을 확인하고 의견을 보태 주세요.
 
 ## 더 자세히 알아보기
 
@@ -121,7 +121,7 @@ python3 -m govcode_harness demo --output .runtime/first-slice
 
 선택적 오철칙 연동의 [기존 MIT 라이선스](integrations/iron-laws/LICENSE)는 유지됩니다. 별도 [가이드·브로슈어](https://github.com/roboco-io/govcode-harness-guide)는 CC BY 4.0입니다.
 
-현재 고정 소스 태그는 `v0.10.0`입니다. 기존 `v0.9.0`과 `v0.9.0-apache2` 태그는 보존합니다. [릴리스 범위](docs/releases/v0.10.0.md)를 확인하세요.
+현재 고정 소스 태그는 `v0.11.0`입니다. 기존 `v0.9.0`과 `v0.9.0-apache2` 태그는 보존합니다. [릴리스 범위](docs/releases/v0.11.0.md)를 확인하세요.
 
 ## AI 친화적 설계 문서 초안
 
@@ -131,3 +131,28 @@ python3 -m govcode_harness demo --output .runtime/first-slice
 ```sh
 .runtime/reference-venv/bin/python -m govcode_harness project document-kit --output .runtime/design-documents
 ```
+
+## v0.11.0: 구조 정리와 R7-E
+
+프로젝트 기능을 govcode_harness/project에 모으고 기존 import·CLI를 유지했습니다. [구조 안내](docs/REPOSITORY_STRUCTURE.md)를 따릅니다.
+R7-E는 commit으로 고정한 JSON·Markdown의 산출물 구조·요구 추적·별도 서명 시험 증명을 검사합니다.
+검사 성공은 요구 충족이나 단계 통과가 아닙니다. [실행 안내](docs/ARTIFACT_TRACE_RUNBOOK.md)를 따릅니다.
+
+```sh
+.runtime/reference-venv/bin/python -m govcode_harness project artifact-demo --output .runtime/my-artifact-demo
+```
+
+v0.11.0에서 R7-F~I의 작업·충족 평가·프로젝트 화면·현재 단계 게이트·새 증적·복구와 전체 합성 인수를 구현했습니다. 아래 전체 실행 안내를 따릅니다.
+
+## v0.11.0: R7 전체 프로젝트 흐름
+
+로컬에서 요구 8개의 상태와 보완 작업을 확인하고, 독립 승인한 추적 수정을 새 commit에 적용한 뒤 코드·문서 재검사와 서명 증적 보관·복구를 실행할 수 있습니다.
+현재 단계 5개 충족·후속 단계 1개·승인 제외 2개를 구분합니다. 기관 운영 승인이나 프로젝트 전체 준수 인증을 뜻하지 않습니다.
+
+```sh
+.runtime/reference-venv/bin/python -m govcode_harness project-demo --output .runtime/my-project-demo
+```
+
+[전체 실행과 화면](docs/PROJECT_REFERENCE_RUNBOOK.md) · [평가·문서 수정](docs/PROJECT_ASSESSMENT_RUNBOOK.md) · [단계·보관](docs/PROJECT_STAGE_EVIDENCE_RUNBOOK.md) · [완료 범위](docs/R7_COMPLETION_REPORT.md)
+
+현재 로컬 전체 회귀는 **739개 통과**이며 실패·오류·건너뜀은 0개입니다. 공개 v0.10.0 릴리스의 범위를 소급 변경하지 않습니다.
