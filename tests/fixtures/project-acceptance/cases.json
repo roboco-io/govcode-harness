@@ -1,0 +1,175 @@
+{
+  "schema_version": "1",
+  "context": "synthetic_reference",
+  "authored_from": "approved specification sections 6-9 and R7 completion plan",
+  "cases": [
+    {
+      "id": "N01",
+      "scenario": "current_allow",
+      "classification": "normal",
+      "expected": "allow",
+      "contract": "Current signed checks, independent review and stored evidence permit this stage."
+    },
+    {
+      "id": "N02",
+      "scenario": "stable_plan",
+      "classification": "normal",
+      "expected": "allow",
+      "contract": "Repeated current-input planning has stable work identities."
+    },
+    {
+      "id": "N03",
+      "scenario": "future_denominator",
+      "classification": "normal",
+      "expected": "allow",
+      "contract": "A later-stage requirement stays in the total denominator."
+    },
+    {
+      "id": "N04",
+      "scenario": "approved_exclusion",
+      "classification": "normal",
+      "expected": "allow",
+      "contract": "Independently approved exclusion stays visible outside satisfied count."
+    },
+    {
+      "id": "N05",
+      "scenario": "history_read",
+      "classification": "normal",
+      "expected": "allow",
+      "contract": "Authenticated historical read preserves release_approval=false."
+    },
+    {
+      "id": "N06",
+      "scenario": "hold_retained",
+      "classification": "normal",
+      "expected": "allow",
+      "contract": "Legal hold remains recorded while current stage evidence is usable."
+    },
+    {
+      "id": "N07",
+      "scenario": "protected_restore",
+      "classification": "normal",
+      "expected": "allow",
+      "contract": "Backup restored with an external checkpoint extends the signed journal prefix."
+    },
+    {
+      "id": "N08",
+      "scenario": "parent_chain",
+      "classification": "normal",
+      "expected": "allow",
+      "contract": "A fresh stored evaluation retains its verified evidence parent."
+    },
+    {
+      "id": "B01",
+      "scenario": "wrong_commit",
+      "classification": "blocking",
+      "expected": "blocked",
+      "contract": "A caller cannot substitute the expected commit."
+    },
+    {
+      "id": "B02",
+      "scenario": "wrong_subject",
+      "classification": "blocking",
+      "expected": "blocked",
+      "contract": "A caller cannot substitute the subject digest."
+    },
+    {
+      "id": "B03",
+      "scenario": "wrong_evaluation",
+      "classification": "blocking",
+      "expected": "blocked",
+      "contract": "A caller cannot substitute the evaluation digest."
+    },
+    {
+      "id": "B04",
+      "scenario": "tampered_projection",
+      "classification": "blocking",
+      "expected": "blocked",
+      "contract": "Changed stored projection bytes cannot open the gate."
+    },
+    {
+      "id": "B05",
+      "scenario": "missing_parent",
+      "classification": "blocking",
+      "expected": "blocked",
+      "contract": "A removed evidence ancestor prevents reuse."
+    },
+    {
+      "id": "B06",
+      "scenario": "nonce_replay",
+      "classification": "blocking",
+      "expected": "blocked",
+      "contract": "Replayed signed authorization cannot execute again."
+    },
+    {
+      "id": "B07",
+      "scenario": "revoked_trust",
+      "classification": "blocking",
+      "expected": "blocked",
+      "contract": "A currently revoked reviewer cannot retain current stage approval."
+    },
+    {
+      "id": "B08",
+      "scenario": "wrong_scope",
+      "classification": "blocking",
+      "expected": "blocked",
+      "contract": "An authorization from another project cannot read evidence."
+    },
+    {
+      "id": "U01",
+      "scenario": "pending_applicability",
+      "classification": "unknown_unverified",
+      "expected": "review_required",
+      "contract": "Unknown applicability is retained as pending."
+    },
+    {
+      "id": "U02",
+      "scenario": "missing_execution",
+      "classification": "unknown_unverified",
+      "expected": "review_required",
+      "contract": "Document existence without signed execution remains unverified."
+    },
+    {
+      "id": "U03",
+      "scenario": "missing_review",
+      "classification": "unknown_unverified",
+      "expected": "review_required",
+      "contract": "Signed execution without independent review cannot open the stage."
+    },
+    {
+      "id": "U04",
+      "scenario": "missing_storage",
+      "classification": "unknown_unverified",
+      "expected": "review_required",
+      "contract": "A ready assessment without actual stored evidence cannot open the stage."
+    },
+    {
+      "id": "U05",
+      "scenario": "unknown_code_fact",
+      "classification": "unknown_unverified",
+      "expected": "review_required",
+      "contract": "Unconfirmed code-check applicability requires review."
+    },
+    {
+      "id": "U06",
+      "scenario": "code_with_false_fact",
+      "classification": "unknown_unverified",
+      "expected": "review_required",
+      "contract": "Code presence with code_checks_required=false requires review."
+    },
+    {
+      "id": "U07",
+      "scenario": "no_current_targets",
+      "classification": "unknown_unverified",
+      "expected": "review_required",
+      "contract": "An empty current-stage denominator cannot open the stage."
+    },
+    {
+      "id": "U08",
+      "scenario": "unsupported_format",
+      "classification": "unknown_unverified",
+      "expected": "review_required",
+      "contract": "Unsupported document format is explicitly unverified."
+    }
+  ]
+}

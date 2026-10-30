@@ -82,6 +82,9 @@ class Desk:
             for role in principal['roles']:
                 security.verify(self.sign(principal, identity, {'kind': 'control_probe'}), self.trust, role, *identity)
 
+        from .project.control import ProjectService
+        self.project_service = ProjectService(self, config.get("project_contexts", []))
+
     def sign(self, signer, identity, extra):
         actor = self.trust['keys'][signer['key_id']]['actor_id']
         payload = dict(context=security.CONTEXT, tenant_id=identity[0], project_id=identity[1], actor_id=actor)
@@ -170,6 +173,12 @@ class Desk:
         identity = principal['tenant_id'], principal['project_id']
         scope = self.scopes[identity]
         self.reject_scope(body, identity)
+        if route == '/api/projects' or route.startswith('/api/projects/'):
+            from .project.assessment import AssessmentError
+            try:
+                return self.project_service.handle(method, route, principal, body, now())
+            except AssessmentError as error:
+                raise ControlError(error.code, 403 if error.code in ('SELF_APPROVAL', 'ROLE_REQUIRED', 'SCOPE_MISMATCH') else 400) from None
         role_routes = {'/api/policies/draft': 'author', '/api/policies/submit': 'author',
                        '/api/policies/approve': 'approver', '/api/bundles/issue': 'operator',
                        '/api/exceptions/request': 'author', '/api/exceptions/approve': 'approver',
@@ -272,6 +281,7 @@ def create_server(config, port=0):
                 parsed = urlsplit(self.path)
                 if parsed.scheme or parsed.netloc or parsed.fragment: raise ControlError('URL_INVALID')
                 assets = {'/': ('index.html', 'text/html; charset=utf-8'), '/app.js': ('app.js', 'text/javascript; charset=utf-8'), '/style.css': ('style.css', 'text/css; charset=utf-8')}
+                assets.update({'/project.html': ('project.html', 'text/html; charset=utf-8'), '/project.js': ('project.js', 'text/javascript; charset=utf-8')})
                 if method == 'GET' and parsed.path in assets and not parsed.query:
                     name, mime = assets[parsed.path]; return self.respond(200, (UI / name).read_bytes(), mime)
                 if not parsed.path.startswith('/api/'): raise ControlError('NOT_FOUND', 404)

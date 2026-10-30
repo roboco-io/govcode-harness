@@ -1,6 +1,6 @@
 """Collect immutable Git objects without consulting or executing working files.
 
-Only ``sources`` contains code and must remain private to the analysis process.
+``capture.blobs`` and ``collect.sources`` are private inputs to analysis.
 ``manifest`` is the explicitly permitted, source-free evidence representation.
 """
 import hashlib
@@ -103,8 +103,8 @@ def validate_commit(repo, commit, *, git=None):
     return commit
 
 
-def collect(repo, commit, *, git=None, max_files=100, max_blob=256_000, max_total=2_000_000):
-    """Read all tracked regular files at one exact commit, without exclusions."""
+def capture(repo, commit, *, git=None, max_files=100, max_blob=256_000, max_total=2_000_000):
+    """Capture each regular Git blob once; bytes stay private to the caller."""
     if any(type(value) is not int or value <= 0 for value in (max_files, max_blob, max_total)):
         raise SnapshotError('SNAPSHOT_LIMIT_INVALID')
     git = git or run_git
@@ -115,7 +115,7 @@ def collect(repo, commit, *, git=None, max_files=100, max_blob=256_000, max_tota
     entries = listing.split(b'\0')[:-1] if listing else []
     if len(entries) > max_files:
         raise SnapshotError('SNAPSHOT_TOO_LARGE')
-    inventory, files, sources, issues, seen = [], [], [], [], set()
+    inventory, blobs, seen = [], {}, set()
     total = 0
     for entry in entries:
         try:
@@ -144,6 +144,19 @@ def collect(repo, commit, *, git=None, max_files=100, max_blob=256_000, max_tota
             raise SnapshotError('SNAPSHOT_TOO_LARGE')
         total += size
         sha = hashlib.sha256(raw).hexdigest()
+        inventory.append({'path': name, 'sha256': sha, 'size_bytes': size})
+        blobs[name] = raw
+    return {'commit_sha': commit, 'inventory': sorted(inventory, key=lambda f: f['path']),
+            'blobs': blobs, 'total_bytes': total}
+
+
+def collect(repo, commit, *, git=None, max_files=100, max_blob=256_000, max_total=2_000_000):
+    """Classify a private byte capture while preserving the code-only contract."""
+    captured = capture(repo, commit, git=git, max_files=max_files, max_blob=max_blob, max_total=max_total)
+    inventory, files, sources, issues = [], [], [], []
+    for entry in captured['inventory']:
+        name, sha, size = entry['path'], entry['sha256'], entry['size_bytes']
+        raw = captured['blobs'][name]
         inventory.append({'path': name, 'sha256': sha})
         suffix = PurePosixPath(name).suffix.lower()
         if suffix == '.py':
@@ -168,7 +181,7 @@ def collect(repo, commit, *, git=None, max_files=100, max_blob=256_000, max_tota
             'files': sorted(files, key=lambda f: f['path']),
             'sources': sorted(sources),
             'issues': sorted(issues, key=lambda f: (f['path'], f['line'], f['code'])),
-            'total_bytes': total}
+            'total_bytes': captured['total_bytes']}
 
 
 def manifest(collected):

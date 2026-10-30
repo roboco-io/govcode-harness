@@ -170,8 +170,17 @@ def _profile(context=None):
 
 def _tool_digest():
     entries = []
-    for path in sorted(Path(__file__).parent.glob('*.py')):
-        entries.append({'name':path.name, 'sha256':digest(_safe_path(path).read_bytes())})
+    root = _safe_path(Path(__file__).parent)
+    for path in sorted(root.rglob('*')):
+        relative = path.relative_to(root)
+        if '__pycache__' in relative.parts:
+            continue
+        if path.is_symlink():
+            raise HarnessError('PATH_UNSAFE')
+        is_resource = ((relative.parts[0] == 'contracts' and path.suffix == '.json') or
+                       (relative.parts[0] == 'document_assets' and path.suffix == '.md'))
+        if path.is_file() and (path.suffix == '.py' or is_resource):
+            entries.append({'name':relative.as_posix(), 'sha256':digest(_safe_path(path).read_bytes())})
     interpreter = {'implementation':sys.implementation.name, 'version':list(sys.version_info)}
     return digest(canonical({'interpreter':interpreter, 'sources':entries}))
 

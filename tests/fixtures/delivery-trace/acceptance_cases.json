@@ -1,0 +1,32 @@
+{
+  "kind": "independent_delivery_trace_acceptance_cases",
+  "context": "synthetic_reference",
+  "operational_approval": false,
+  "scope": "Structural checks and signed test-result binding only; no requirement fulfillment or stage approval.",
+  "cases": [
+    {"id":"V01","category":"valid","scenario":"baseline","expected":"checks_passed"},
+    {"id":"V02","category":"valid","scenario":"korean_paths","expected":"checks_passed"},
+    {"id":"V03","category":"valid","scenario":"fenced_code_headings","expected":"checks_passed"},
+    {"id":"V04","category":"valid","scenario":"equal_bytes_distinct_artifacts","expected":"checks_passed"},
+    {"id":"V05","category":"valid","scenario":"sensitive_text_not_reported","expected":"checks_passed"},
+    {"id":"V06","category":"valid","scenario":"unrelated_tracked_file","expected":"checks_passed"},
+    {"id":"V07","category":"valid","scenario":"dirty_worktree_is_not_input","expected":"checks_passed"},
+    {"id":"V08","category":"valid","scenario":"sequential_markdown_sections","expected":"checks_passed"},
+    {"id":"D01","category":"blocking","scenario":"missing_plan_link","expected":"not_passed"},
+    {"id":"D02","category":"blocking","scenario":"dangling_artifact_reference","expected":"not_passed"},
+    {"id":"D03","category":"blocking","scenario":"duplicate_artifact_id","expected":"not_passed"},
+    {"id":"D04","category":"blocking","scenario":"wrong_content_digest","expected":"not_passed"},
+    {"id":"D05","category":"blocking","scenario":"cross_project_artifact","expected":"not_passed"},
+    {"id":"D06","category":"blocking","scenario":"required_artifact_not_on_requirement_path","expected":"not_passed"},
+    {"id":"D07","category":"blocking","scenario":"forged_result_signature","expected":"not_passed"},
+    {"id":"D08","category":"blocking","scenario":"receipt_for_another_commit","expected":"not_passed"},
+    {"id":"U01","category":"unverified","scenario":"requirement_authority_not_supplied","expected":"review_required"},
+    {"id":"U02","category":"unverified","scenario":"passed_text_without_receipt","expected":"review_required"},
+    {"id":"U03","category":"unverified","scenario":"trusted_key_not_supplied","expected":"review_required"},
+    {"id":"U04","category":"unverified","scenario":"tool_authority_not_supplied","expected":"review_required"},
+    {"id":"U05","category":"unverified","scenario":"unsupported_required_document","expected":"review_required"},
+    {"id":"U06","category":"unverified","scenario":"non_utf8_required_document","expected":"review_required"},
+    {"id":"U07","category":"unverified","scenario":"raw_html_needs_review","expected":"review_required"},
+    {"id":"U08","category":"unverified","scenario":"second_required_check_has_no_receipt","expected":"review_required"}
+  ]
+}
